@@ -13,7 +13,14 @@
         android:layout_height="200dp"
         android:background="@color/ThemeColor"
         />
-
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/ThemeColor"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:elevation="5dp"
+        />
 
 
     <androidx.cardview.widget.CardView
@@ -137,7 +144,6 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
         android:divider="@color/ThemeColor"
-        tools:listitem="@layout/invoice_list_item"
         />
 
 </RelativeLayout>

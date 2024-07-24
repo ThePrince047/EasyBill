@@ -6,7 +6,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <View
         android:layout_width="match_parent"
@@ -87,7 +88,7 @@
                     android:textStyle="bold"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
-                    android:textColor="#E70B0B"
+                    android:textColor="@color/black"
                     />
                 <TextView
                     android:layout_width="match_parent"

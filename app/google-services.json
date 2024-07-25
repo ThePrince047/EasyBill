@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "591595836788",
+    "firebase_url": "https://easybill-e9978-default-rtdb.firebaseio.com",
+    "project_id": "easybill-e9978",
+    "storage_bucket": "easybill-e9978.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591595836788:android:e91ccedc55de8df7084821",
+        "android_client_info": {
+          "package_name": "com.example.easybill"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7JWs1dib79dqDDyXxg-LGYPezqrAzb_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

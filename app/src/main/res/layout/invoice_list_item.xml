@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -17,12 +17,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tvInvoiceNumber"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/lblPartyname"
+                android:text="Party Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_marginLeft="10dp"
+                android:text="Time"
+                android:id="@+id/lbldate"
+                android:layout_marginTop="50dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="270dp"
+                android:text="Amount"
+                android:id="@+id/lblAmt"
+                android:layout_marginTop="20dp"
+                />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

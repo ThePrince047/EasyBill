@@ -5,9 +5,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
+        android:paddingVertical="10dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardBackgroundColor="@color/white">
@@ -18,9 +20,9 @@
                 android:id="@+id/tvInvoiceNumber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
                 android:textStyle="bold"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textColor="@color/black"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

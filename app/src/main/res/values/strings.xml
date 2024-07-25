@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EasyBill</string>
+    <string name="Reports">Reports</string>
+    <string name="Notification">Notification</string>
+    <string name="Activity">Activity</string>
+    <string name="Account">Account</string>
+
 </resources>

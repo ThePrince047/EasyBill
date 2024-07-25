@@ -28,14 +28,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ListView invoiceListView = findViewById(R.id.invoiceListView);
-
-        List<String> placeholderItems = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            placeholderItems.add("Invoice #" + i + " - $100.00");
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.invoice_list_item,R.id.tvInvoiceNumber, placeholderItems);
-        invoiceListView.setAdapter(adapter);
     }
 }

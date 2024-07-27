@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void disBalance() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference balanceRef = database.getReference("users").child("userID_123").child("balance");
+        DatabaseReference balanceRef = database.getReference("users").child("userID_007").child("balance");
 
         balanceRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     void disUsername(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference usernameRef = database.getReference("users").child("userID_123").child("username");
+        DatabaseReference usernameRef = database.getReference("users").child("userID_007").child("username");
         usernameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

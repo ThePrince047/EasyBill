@@ -47,21 +47,22 @@
             <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+                android:src="@drawable/user"
             android:background="@color/white"
             />
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/homeamt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
-        android:text="₹1,00,000"
+        android:text="₹Loading.."
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="50dp"
-        android:id="@+id/homeamt"
-        />
+        android:textStyle="bold" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

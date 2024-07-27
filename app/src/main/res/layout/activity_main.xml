@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,150 +8,141 @@
     tools:context=".MainActivity"
     android:background="#F8F8F8">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:background="@color/ThemeColor"
-        android:id="@+id/homeview"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello,"
-        android:id="@+id/lblHello"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="20dp"
-        android:textColor="#84857F"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:layout_below="@id/lblHello"
-        android:id="@+id/lblUser"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="0dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        />
-    <androidx.cardview.widget.CardView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        app:cardCornerRadius="25dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="@color/ThemeColor"
+            android:id="@+id/homeview"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello,"
+            android:id="@+id/lblHello"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#84857F"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:layout_below="@id/lblHello"
+            android:id="@+id/lblUser"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="0dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            app:cardCornerRadius="25dp">
             <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                android:background="@color/white"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/homeamt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="100dp"
+            android:text="₹Loading.."
+            android:textColor="@color/black"
+            android:textSize="50dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@id/homeamt"
+            android:text="Total Balance"
+            android:textSize="15dp"
+            android:textColor="#84857F"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/homeview"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Recent Invoices"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/homeview"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="257dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="View All"
+            android:textColor="@color/black"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="18dp"/>
+
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-                android:src="@drawable/user"
-            android:background="@color/white"
-            />
-    </androidx.cardview.widget.CardView>
+            android:layout_below="@id/homeview"
+            android:layout_above="@id/CoordinatorLayout"
+            android:id="@+id/homeinvoicelist"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
-    <TextView
-        android:id="@+id/homeamt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
-        android:text="₹Loading.."
-        android:textColor="@color/black"
-        android:textSize="50dp"
-        android:textStyle="bold" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="1dp"
-        android:layout_below="@id/homeamt"
-        android:text="Total Balance"
-        android:textSize="15dp"
-        android:textColor="#84857F"
-        />
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/CoordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/homeview"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Recent Invoices"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        />
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomappbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@android:color/transparent"
+                app:fabCradleMargin="10dp"
+                app:fabCradleRoundedCornerRadius="60dp"
+                app:fabCradleVerticalOffset="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/homeview"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="257dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="View All"
-        android:textColor="@color/black"
-        android:clickable="true"
-        android:focusable="true"
-        android:textSize="18dp" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/ThemeColor"
+                android:src="@drawable/baseline_add_24"
+                app:layout_anchor="@+id/bottomappbar"
+                app:layout_anchorGravity="center"
+                app:maxImageSize="40dp" />
 
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D3D7B2"
+                app:itemIconTint="@color/black"
+                app:itemTextColor="@color/black"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/botton_nav_items"/>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/homeview"
-        android:id="@+id/homeinvoicelist"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/black"
-        android:id="@+id/bottomnv"
-        >
-
-        <TextView
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:text="Income"
-            app:drawableStartCompat="@drawable/icninc"
-            android:gravity="center"
-            android:drawablePadding="10dp"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="25dp"
-            android:id="@+id/lblIncome"
-            />
-        <View
-            android:layout_width="2dp"
-            android:layout_height="20dp"
-            android:background="@color/white"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="30dp"
-            />
-        <TextView
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            app:drawableEndCompat="@drawable/icnexp"
-            android:layout_marginStart="210dp"
-            android:layout_marginTop="15dp"
-            android:text="Expense"
-            android:gravity="center"
-            android:drawablePadding="10dp"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
-
-</RelativeLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

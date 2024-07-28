@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/nav_home"
         android:icon="@drawable/baseline_account_balance_24"
         android:title="Home"
         android:iconTint="@color/black"
         />
     <item
-        android:id="@+id/new_invoice"
+        android:id="@+id/nav_new_invoice"
         android:checkable="false"
         android:title=""
         />
     <item
-        android:id="@+id/invoice"
+        android:id="@+id/nav_reports"
         android:iconTint="@color/black"
         android:icon="@drawable/baseline_account_balance_wallet_24"
-        android:title="Invoice" />
+        android:title="Reports" />
 
 </menu>

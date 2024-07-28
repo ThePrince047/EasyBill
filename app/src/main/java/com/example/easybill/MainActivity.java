@@ -1,9 +1,11 @@
 package com.example.easybill;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     List<Invoice> invoicesList;
     CardAdapter cardAdapter;
-    TextView homeamt,Username;
+    TextView homeamt, Username,viewall;
+    BottomNavigationView bottomNavigationView;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         });
         disBalance();
         disUsername();
+        viewall=findViewById(R.id.viewAllButton);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        fab = findViewById(R.id.fabButton);
         listView = findViewById(R.id.homeinvoicelist);
         invoicesList = new ArrayList<>();
         cardAdapter = new CardAdapter(this, invoicesList);
@@ -77,8 +86,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    return true;
+                } else if (itemId == R.id.nav_reports) {
+                    startActivity(new Intent(getApplicationContext(), reports_page.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), invoice_gen_page.class));
+                overridePendingTransition(0, 0);
+            }
+        });
+        viewall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), reports_page.class));
+                overridePendingTransition(0, 0);
+            }
+        });
     }
+
     void disBalance() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference balanceRef = database.getReference("users").child("userID_007").child("balance");
@@ -101,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void disUsername(){
+    void disUsername() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usernameRef = database.getReference("users").child("userID_007").child("username");
         usernameRef.addValueEventListener(new ValueEventListener() {
@@ -116,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }
 
@@ -148,7 +186,6 @@ class CardAdapter extends ArrayAdapter<Invoice> {
         return convertView;
     }
 }
-
 
 class Invoice {
     private String description;
@@ -189,6 +226,3 @@ class Invoice {
         this.amount = amount;
     }
 }
-
-
-

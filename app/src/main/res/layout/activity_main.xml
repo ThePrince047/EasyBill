@@ -82,6 +82,7 @@
             android:textSize="18dp"/>
 
         <TextView
+            android:id="@+id/viewAllButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/homeview"
@@ -99,49 +100,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/homeview"
-            android:layout_above="@id/CoordinatorLayout"
+            android:layout_above="@id/bottom_navigation"
             android:id="@+id/homeinvoicelist"
             android:layout_marginTop="60dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/CoordinatorLayout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true">
-
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottomappbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:backgroundTint="@android:color/transparent"
-                app:fabCradleMargin="10dp"
-                app:fabCradleRoundedCornerRadius="60dp"
-                app:fabCradleVerticalOffset="10dp"/>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/ThemeColor"
-                android:src="@drawable/baseline_add_24"
-                app:layout_anchor="@+id/bottomappbar"
-                app:layout_anchorGravity="center"
-                app:maxImageSize="40dp" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="75dp"
                 android:background="#D3D7B2"
                 app:itemIconTint="@color/black"
+                android:layout_alignParentBottom="true"
                 app:itemTextColor="@color/black"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/botton_nav_items"/>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/ThemeColor"
+            android:src="@drawable/baseline_add_24"
+            android:layout_above="@id/bottom_navigation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-30dp"
+            app:maxImageSize="40dp" />
 
     </RelativeLayout>
 

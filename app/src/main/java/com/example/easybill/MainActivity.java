@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 if (balance != null) {
                     homeamt.setText(balance.toString());
                 } else {
-                    homeamt.setText("0");
+                    homeamt.setText("₹0");
                 }
             }
 

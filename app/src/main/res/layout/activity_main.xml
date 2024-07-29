@@ -25,7 +25,7 @@
             android:id="@+id/lblHello"
             android:layout_marginStart="65dp"
             android:layout_marginTop="20dp"
-            android:textColor="#84857F"/>
+            android:textColor="@color/white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
             android:layout_below="@id/homeamt"
-            android:text="Total Balance"
+            android:text="Today's Revenue"
             android:textSize="15dp"
             android:textColor="@color/white"/>
 

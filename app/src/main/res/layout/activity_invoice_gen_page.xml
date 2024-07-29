@@ -21,7 +21,9 @@
         android:elevation="10dp"
         android:background="#E9E9E9"
         app:itemActiveIndicatorStyle="@color/bottom_nav_colir"
+        app:itemIconTint="@color/bottom_nav_colir"
         android:layout_alignParentBottom="true"
+        app:itemTextColor="@color/bottom_nav_colir"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/botton_nav_items"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -20,6 +20,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         disBalance();
-        disUsername();
+        displayUsername();
 
         viewall = findViewById(R.id.viewAllButton);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -65,28 +75,27 @@ public class MainActivity extends AppCompatActivity {
         homeamt = findViewById(R.id.homeamt);
         Username = findViewById(R.id.lblUser);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference invoicesRef = database.getReference("user").child("userID_123").child("invoices");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference invoicesRef = db.collection("EasyBill")
+                .document("AHGVGZeL3iQ4cWzEJAGwURC0uU93")
+                .collection("invoices");
 
-        invoicesRef.addValueEventListener(new ValueEventListener() {
+        invoicesRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("Firebase", "Listen failed.", error);
+                    return;
+                }
+
                 invoicesList.clear();
-                for (DataSnapshot invoiceSnapshot : dataSnapshot.getChildren()) {
-                    Invoice invoice = invoiceSnapshot.getValue(Invoice.class);
-                    if (invoice != null) {
+                if (value != null) {
+                    for (DocumentSnapshot doc : value) {
+                        Invoice invoice = doc.toObject(Invoice.class);
                         invoicesList.add(invoice);
-                    } else {
-                        Log.e("Firebase", "Invoice is null");
-                        Log.w("MainActivity", "Failed to convert Invoice object from DataSnapshot: " + invoiceSnapshot.getKey());
                     }
                 }
                 cardAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w("Firebase", "Failed to read value.", error.toException());
             }
         });
 
@@ -125,46 +134,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void disBalance() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference balanceRef = database.getReference("user").child("userID_123").child("balance");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("EasyBill")
+                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93")
+                .collection("user_info")
+                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93");
 
-        balanceRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Long balance = snapshot.getValue(Long.class);
-                if (balance != null) {
-                    homeamt.setText(balance.toString());
-                } else {
-                    homeamt.setText("₹0");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                homeamt.setText("Error: " + error.getMessage());
-            }
-        });
+        docRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String user = documentSnapshot.getString("TodayRev");
+                            if (user != null) {
+                                homeamt.setText(user);
+                            } else {
+                                homeamt.setText("Unknown User");
+                            }
+                        } else {
+                            homeamt.setText("Document does not exist");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Username.setText("Error: " + e.getMessage());
+                    }
+                });
     }
 
-    void disUsername() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference usernameRef = database.getReference("user").child("userID_123").child("username");
-        usernameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String user = snapshot.getValue(String.class);
-                if (user != null) {
-                    Username.setText(user);
-                } else {
-                    Username.setText("Unknown User");
-                }
-            }
+    void displayUsername() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("EasyBill")
+                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93")
+                .collection("user_info")
+                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93");
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Username.setText("Error: " + error.getMessage());
-            }
-        });
+        docRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String user = documentSnapshot.getString("Name");
+                            if (user != null) {
+                                Username.setText(user);
+                            } else {
+                                Username.setText("Unknown User");
+                            }
+                        } else {
+                            Username.setText("Document does not exist");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Username.setText("Error: " + e.getMessage());
+                    }
+                });
     }
 }
 
@@ -187,7 +215,7 @@ class CardAdapter extends ArrayAdapter<Invoice> {
             TextView lblAmt = convertView.findViewById(R.id.lblAmt);
 
             lblPartyname.setText(invoice.getDescription());
-            lbldate.setText(invoice.getDate());
+            //lbldate.setText(invoice.getDate());
             lblAmt.setText(invoice.getAmount().toString());
         } else {
             Log.e("CardAdapter", "Invoice object at position " + position + " is null.");
@@ -198,7 +226,7 @@ class CardAdapter extends ArrayAdapter<Invoice> {
 }
 
 class Invoice {
-    private String description;
+    private String name;
     private String date;
     private Double amount;
 
@@ -207,26 +235,26 @@ class Invoice {
     }
 
     public Invoice(String description, String date, Double amount) {
-        this.description = description;
-        this.date = date;
+        this.name = description;
+        //this.date = date;
         this.amount = amount;
     }
 
     public String getDescription() {
-        return description;
+        return name;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.name = description;
     }
 
-    public String getDate() {
-        return date;
-    }
+    //public String getDate() {
+    //    return date;
+    //}
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+    //public void setDate(String date) {
+    //    this.date = date;
+    //}
 
     public Double getAmount() {
         return amount;

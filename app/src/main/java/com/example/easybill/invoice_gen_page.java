@@ -35,6 +35,7 @@ public class invoice_gen_page extends AppCompatActivity {
         fab=findViewById(R.id.fabButton);
         Window window=this.getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
+        bottomNavigationView.setSelectedItemId(R.id.nav_new_invoice);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

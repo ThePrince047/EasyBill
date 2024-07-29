@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -36,16 +35,15 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     List<Invoice> invoicesList;
     CardAdapter cardAdapter;
-    TextView homeamt, Username,viewall;
+    TextView homeamt, Username, viewall;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        Window window=this.getWindow();
+        Window window = this.getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -53,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         disBalance();
         disUsername();
-        viewall=findViewById(R.id.viewAllButton);
+
+        viewall = findViewById(R.id.viewAllButton);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fab = findViewById(R.id.fabButton);
         listView = findViewById(R.id.homeinvoicelist);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Username = findViewById(R.id.lblUser);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference invoicesRef = database.getReference("invoices");
+        DatabaseReference invoicesRef = database.getReference("user").child("userID_123").child("invoices");
 
         invoicesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("Firebase", "Failed to read value.", error.toException());
             }
         });
+
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
+
         viewall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
     void disBalance() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference balanceRef = database.getReference("users").child("userID_007").child("balance");
+        DatabaseReference balanceRef = database.getReference("user").child("userID_123").child("balance");
 
         balanceRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -146,17 +148,21 @@ public class MainActivity extends AppCompatActivity {
 
     void disUsername() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference usernameRef = database.getReference("users").child("userID_007").child("username");
+        DatabaseReference usernameRef = database.getReference("user").child("userID_123").child("username");
         usernameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String user = snapshot.getValue(String.class);
-                Username.setText(user);
+                if (user != null) {
+                    Username.setText(user);
+                } else {
+                    Username.setText("Unknown User");
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Username.setText("Error: " + error.getMessage());
             }
         });
     }

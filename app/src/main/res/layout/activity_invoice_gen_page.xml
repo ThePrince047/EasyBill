@@ -6,13 +6,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".invoice_gen_page">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Invoice Gen Page"
-        android:layout_centerInParent="true"
-        android:textSize="40dp"
-        />
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/lblinvoicegen"
+        android:textSize="40dp" />
+
+    <EditText
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/lblinvoicegen"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:hint="Name" />
+    <EditText
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/tvName"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:hint="Amount" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAmount"
+        android:id="@+id/btnSubmitInvoice"
+        android:layout_centerHorizontal="true"
+        android:text="Submit"
+        android:layout_marginTop="10dp"/>
+
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

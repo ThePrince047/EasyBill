@@ -1,6 +1,9 @@
 package com.example.easybill;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Window;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +23,16 @@ public class SplashScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Window window=getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
+            }
+        },2500);
 
     }
 }

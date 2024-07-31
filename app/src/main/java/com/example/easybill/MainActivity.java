@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     TextView homeamt, Username, viewall;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
-
+    FirebaseUser currentUser = FirebaseAuth.getInstance() .getCurrentUser() ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference invoicesRef = db.collection("EasyBill")
-                .document("AHGVGZeL3iQ4cWzEJAGwURC0uU93")
+                .document(currentUser.getUid())
                 .collection("invoices");
 
         invoicesRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -136,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
     void disBalance() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("EasyBill")
-                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93")
+                .document(currentUser.getUid())
                 .collection("user_info")
-                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93");
+                .document(currentUser.getUid());
 
         docRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -167,9 +169,9 @@ public class MainActivity extends AppCompatActivity {
     void displayUsername() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("EasyBill")
-                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93")
+                .document(currentUser.getUid())
                 .collection("user_info")
-                .document("AHGVGZeL3iQ4cWzEJAGwURCOuU93");
+                .document(currentUser.getUid());
 
         docRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -214,7 +216,7 @@ class CardAdapter extends ArrayAdapter<Invoice> {
             TextView lbldate = convertView.findViewById(R.id.lbldate);
             TextView lblAmt = convertView.findViewById(R.id.lblAmt);
 
-            lblPartyname.setText(invoice.getDescription());
+            lblPartyname.setText(invoice.getName());
             //lbldate.setText(invoice.getDate());
             lblAmt.setText(invoice.getAmount().toString());
         } else {
@@ -227,7 +229,7 @@ class CardAdapter extends ArrayAdapter<Invoice> {
 
 class Invoice {
     private String name;
-    private String date;
+    //private String date;
     private Double amount;
 
     public Invoice() {
@@ -240,12 +242,12 @@ class Invoice {
         this.amount = amount;
     }
 
-    public String getDescription() {
+    public String getName() {
         return name;
     }
 
-    public void setDescription(String description) {
-        this.name = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     //public String getDate() {

@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 
 public class invoice_gen_page extends AppCompatActivity {
@@ -40,7 +42,7 @@ public class invoice_gen_page extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        FirebaseUser currentUser = FirebaseAuth.getInstance() .getCurrentUser() ;
         user = findViewById(R.id.tvName);
         amount = findViewById(R.id.tvAmount);
         button = findViewById(R.id.btnSubmitInvoice);

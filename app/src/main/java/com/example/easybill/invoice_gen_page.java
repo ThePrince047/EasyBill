@@ -3,6 +3,8 @@ package com.example.easybill;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -98,7 +100,11 @@ public class invoice_gen_page extends AppCompatActivity {
     }
 }
 
+
+
+
 class CardAdapter1 extends ArrayAdapter<AddInvoice> {
+
     public CardAdapter1(Context context, List<AddInvoice> invoices) {
         super(context, 0, invoices);
     }
@@ -109,30 +115,65 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.added_item, parent, false);
         }
 
-        AddInvoice invoice = getItem(position);
+        // Ensure the position is valid
+        if (position < getCount()) {
+            AddInvoice invoice = getItem(position);
 
-        if (invoice != null) {
-            // Use EditText for displaying data, though it's not typical
-            EditText itemName = convertView.findViewById(R.id.edtItemName);
-            EditText quantity = convertView.findViewById(R.id.edtQuantity);
-            EditText amount = convertView.findViewById(R.id.edtAmount);
+            if (invoice != null) {
+                // Initialize EditTexts
+                EditText itemName = convertView.findViewById(R.id.edtItemName);
+                EditText quantity = convertView.findViewById(R.id.edtQuantity);
+                EditText amount = convertView.findViewById(R.id.edtAmount);
 
-            if (itemName != null) {
-                itemName.setText(invoice.getName());
-            }
-            if (quantity != null) {
-                quantity.setText(invoice.getQuantity());
-            }
-            if (amount != null) {
-                amount.setText(invoice.getAmount());
+                // Set data to EditTexts
+                if (itemName != null) {
+                    itemName.setText(invoice.getName());
+                }
+                if (quantity != null) {
+                    quantity.setText(invoice.getQuantity());
+                    // Save original quantity
+                    final String originalQuantity = invoice.getQuantity();
+
+                    // Add FocusChangeListener for quantity
+                    quantity.setOnFocusChangeListener((v, hasFocus) -> {
+                        if (!hasFocus) {
+                            String newQuantityText = quantity.getText().toString();
+                            if (newQuantityText.isEmpty()) {
+                                newQuantityText = "0";
+                            }
+
+                            int newQuantity = Integer.parseInt(newQuantityText);
+
+                            // Only remove item if the quantity is set to 0 and was originally non-zero
+                            if (newQuantity == 0 && !originalQuantity.equals("0")) {
+                                remove(invoice);
+                                notifyDataSetChanged();
+                            } else if (newQuantity != 0) {
+                                // Update the invoice's quantity if it is not 0
+                                invoice.setQuantity(newQuantityText);
+                            }
+                        }
+                    });
+                }
+                if (amount != null) {
+                    amount.setText(invoice.getAmount());
+                }
+            } else {
+                Log.e("CardAdapter1", "Invoice object at position " + position + " is null.");
             }
         } else {
-            Log.e("CardAdapter1", "Invoice object at position " + position + " is null.");
+            Log.e("CardAdapter1", "Invalid position: " + position);
         }
 
         return convertView;
     }
 }
+
+
+
+
+
+
 
 
 class AddInvoice {

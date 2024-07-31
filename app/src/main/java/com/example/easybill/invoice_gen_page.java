@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -146,15 +145,12 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
                             int newQuantity = Integer.parseInt(newQuantityText);
 
                             // Only remove item if the quantity is set to 0 and was originally non-zero
-                            if (newQuantity == 0) {
+                            if (newQuantity == 0 && !originalQuantity.equals("0")) {
                                 remove(invoice);
                                 notifyDataSetChanged();
-                                Toast.makeText(getContext(),"Invoice Removed", Toast.LENGTH_SHORT).show();
-                            } else {
+                            } else if (newQuantity != 0) {
                                 // Update the invoice's quantity if it is not 0
-                                Toast.makeText(getContext(), "Invoice Updated", Toast.LENGTH_SHORT).show();
                                 invoice.setQuantity(newQuantityText);
-                                notifyDataSetChanged();
                             }
                         }
                     });

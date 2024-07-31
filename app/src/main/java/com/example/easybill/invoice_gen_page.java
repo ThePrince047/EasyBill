@@ -43,9 +43,9 @@ public class invoice_gen_page extends AppCompatActivity {
             return insets;
         });
         FirebaseUser currentUser = FirebaseAuth.getInstance() .getCurrentUser() ;
-        user = findViewById(R.id.tvName);
-        amount = findViewById(R.id.tvAmount);
-        button = findViewById(R.id.btnSubmitInvoice);
+        user = findViewById(R.id.edtItemName);
+        amount = findViewById(R.id.edtAmount);
+        button = findViewById(R.id.btnAddInvoice);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fab = findViewById(R.id.fabButton);
 

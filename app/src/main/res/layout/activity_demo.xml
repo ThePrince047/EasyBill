@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f5f5f5">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:elevation="2dp">
+
+        <!-- Company Information -->
+        <TextView
+            android:id="@+id/companyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Company Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/companyAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address Line 1\nAddress Line 2\nCity, State, Zip Code"
+            android:layout_below="@id/companyName"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/companyPhoneEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: (123) 456-7890\nEmail: info@company.com"
+            android:layout_below="@id/companyAddress"
+            android:paddingBottom="16dp"/>
+
+        <!-- Invoice Title and Date -->
+        <TextView
+            android:id="@+id/invoiceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INVOICE"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_below="@id/companyPhoneEmail"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:textColor="@android:color/holo_blue_dark"/>
+
+        <TextView
+            android:id="@+id/invoiceNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invoice #: 12345"
+            android:layout_below="@id/invoiceTitle"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: 01/01/2024"
+            android:layout_below="@id/invoiceTitle"
+            android:layout_alignParentEnd="true"
+            android:paddingBottom="8dp"/>
+
+        <!-- Customer Information -->
+        <TextView
+            android:id="@+id/billToLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bill To:"
+            android:textStyle="bold"
+            android:layout_below="@id/invoiceNumber"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/customerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Name"
+            android:layout_below="@id/billToLabel"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/customerAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/customerName"
+            android:paddingBottom="1dp"/>
+
+        <!-- Itemized List -->
+        <LinearLayout
+            android:id="@+id/itemContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/customerAddress"
+            android:paddingTop="16dp">
+
+            <!-- Header Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Description"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quantity"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Price"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Totals -->
+        <TextView
+            android:id="@+id/subTotalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subtotal:"
+            android:textStyle="bold"
+            android:layout_below="@id/itemContainer"
+            android:layout_alignParentStart="true"
+            android:paddingTop="16dp"/>
+
+        <TextView
+            android:id="@+id/subTotalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0.00"
+            android:layout_below="@id/itemContainer"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="16dp"/>
+
+        <TextView
+            android:id="@+id/taxLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tax (5%):"
+            android:textStyle="bold"
+            android:layout_below="@id/subTotalLabel"
+            android:layout_alignParentStart="true"
+            android:paddingTop="8dp"/>
+
+        <TextView
+            android:id="@+id/taxValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0.00"
+            android:layout_below="@id/subTotalValue"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="8dp"/>
+
+        <TextView
+            android:id="@+id/totalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total:"
+            android:textStyle="bold"
+            android:layout_below="@id/taxLabel"
+            android:layout_alignParentStart="true"
+            android:paddingTop="8dp"/>
+
+        <TextView
+            android:id="@+id/totalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0.00"
+            android:layout_below="@id/taxValue"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="8dp"/>
+
+    </RelativeLayout>
+</ScrollView>

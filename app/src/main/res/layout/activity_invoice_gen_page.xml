@@ -7,12 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".invoice_gen_page">
 
-
     <TextView
         android:id="@+id/lblinvoicegen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="46dp"
         android:layout_marginTop="30dp"
         android:textColor="@color/black"
@@ -32,6 +30,7 @@
         app:itemTextColor="@color/bottom_nav_colir"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/botton_nav_items"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabButton"
         android:layout_width="wrap_content"
@@ -67,8 +66,9 @@
         android:layout_marginStart="5dp"
         android:textAlignment="center"
         android:background="@drawable/border"
-        android:hint="0"
-        android:inputType="text" />
+        android:hint="Quantity"
+        android:inputType="number" />
+
     <EditText
         android:id="@+id/edtAmount"
         android:layout_width="wrap_content"
@@ -81,55 +81,57 @@
         android:ems="6"
         android:textAlignment="center"
         android:background="@drawable/border"
-        android:hint="0"
-        android:inputType="text" />
+        android:hint="Amount"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/lblItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/lblinvoicegen"
         android:layout_marginTop="20dp"
         android:layout_marginStart="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:text="Item Name" />
+
     <TextView
         android:id="@+id/lblItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/lblinvoicegen"
-        android:layout_toRightOf="@id/lblItemName"
-
+        android:layout_toEndOf="@id/lblItemName"
         android:layout_marginTop="20dp"
         android:layout_marginStart="110dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:text="Qty" />
+
     <TextView
         android:id="@+id/lblItemAmount"
-        android:layout_below="@id/lblinvoicegen"
-        android:layout_toRightOf="@id/lblItemQuantity"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/lblinvoicegen"
+        android:layout_toEndOf="@id/lblItemQuantity"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="60dp"
         android:textColor="@color/black"
         android:text="Amount" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddInvoice"
         android:layout_width="match_parent"
-        app:cornerRadius="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Add Invoice"
         android:layout_below="@id/edtAmount"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginEnd="20dp"
+        app:cornerRadius="0dp" />
 
     <ListView
+        android:id="@+id/lvAddedItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:layout_below="@id/btnAddInvoice"
-        android:layout_above="@id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_above="@id/bottom_navigation" />
 
 </RelativeLayout>

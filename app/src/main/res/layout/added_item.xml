@@ -20,9 +20,11 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/edtItemName"
+                android:id="@+id/edtAddedItemName"
+
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginStart="3dp"
                 android:paddingLeft="10dp"
                 android:ems="9"
                 android:background="@drawable/border"
@@ -30,29 +32,54 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/edtQuantity"
+                android:id="@+id/edtAddedQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_toEndOf="@id/edtItemName"
-                android:layout_marginStart="3dp"
-                android:ems="3"
-                android:textAlignment="center"
+                android:layout_marginStart="50dp"
+                android:layout_toEndOf="@id/edtAddedItemName"
                 android:background="@drawable/border"
+                android:ems="3"
                 android:hint="0"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/edtAmount"
+                android:id="@+id/edtAddedAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_toEndOf="@id/edtQuantity"
+                android:layout_below="@id/edtAddedItemName"
                 android:layout_marginStart="3dp"
-                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:ems="6"
                 android:textAlignment="center"
                 android:background="@drawable/border"
                 android:hint="0"
                 android:inputType="text" />
+
+            <ImageButton
+                android:id="@+id/btnRemovefromcart"
+                app:cornerRadius="0dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#00FF0000"
+                android:layout_width="40dp"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:src="@drawable/icnrmvfrmcart"/>
+
+            <TextView
+
+                android:layout_toRightOf="@id/edtAddedItemName"
+                android:id="@+id/textView2"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X" />
 
         </RelativeLayout>
 

@@ -21,14 +21,14 @@
 
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".invoice_gen_page"
             android:exported="false" />
         <activity
             android:name=".reports_page"
             android:exported="false" />
 
         <activity
-            android:name=".invoice_gen_page"
+            android:name=".Login"
             android:exported="true"><intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

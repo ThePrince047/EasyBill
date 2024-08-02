@@ -19,43 +19,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/edtAddedItemName"
-
+            <TextView
+                android:id="@+id/tvAddedItemName"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="3dp"
-                android:paddingLeft="10dp"
-                android:ems="9"
-                android:background="@drawable/border"
-                android:hint="Item Name"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/edtAddedQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="50dp"
-                android:layout_toEndOf="@id/edtAddedItemName"
-                android:background="@drawable/border"
-                android:ems="3"
-                android:hint="0"
-                android:inputType="text"
-                android:textAlignment="center" />
-
-            <EditText
-                android:id="@+id/edtAddedAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@id/edtAddedItemName"
-                android:layout_marginStart="3dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+
+ />
+
+            <TextView
+                android:id="@+id/tvAddedQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAddedItemName"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="10dp"
+                android:textSize="17dp"
+
+                                />
+
+            <TextView
+                android:id="@+id/tvAddedAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAddedItemName"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
-                android:ems="6"
-                android:textAlignment="center"
-                android:background="@drawable/border"
-                android:hint="0"
-                android:inputType="text" />
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/textView2"
+
+
+
+
+                android:textSize="17dp" />
 
             <ImageButton
                 android:id="@+id/btnRemovefromcart"
@@ -64,22 +63,35 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="#00FF0000"
-                android:layout_width="40dp"
+                android:layout_width="25dp"
+
+                android:layout_height="25dp"
                 android:textAlignment="center"
-                android:layout_height="wrap_content"
+
                 android:text="X"
-                android:src="@drawable/icnrmvfrmcart"/>
+                android:src="@drawable/icnremovefromlist"/>
 
             <TextView
 
-                android:layout_toRightOf="@id/edtAddedItemName"
+                android:layout_toRightOf="@id/tvAddedQuantity"
+                android:layout_below="@id/tvAddedItemName"
                 android:id="@+id/textView2"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:textSize="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="X" />
+
+            <TextView
+                android:id="@+id/tvItemTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_toLeftOf="@id/btnRemovefromcart"
+                android:layout_marginEnd="20dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 

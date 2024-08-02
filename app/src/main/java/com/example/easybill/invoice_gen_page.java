@@ -132,12 +132,13 @@ public class invoice_gen_page extends AppCompatActivity {
 
 
 class CardAdapter1 extends ArrayAdapter<AddInvoice> {
-    private double totalAmt = 0;
+    private double totalAmt,totalItemAmount;
     private TextView totalTextView;
 
     public CardAdapter1(Context context, List<AddInvoice> invoices) {
         super(context, 0, invoices);
         totalTextView = ((AppCompatActivity) context).findViewById(R.id.tvTotalAmount);
+
     }
 
     @Override
@@ -156,92 +157,26 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
             });
 
             if (invoice != null) {
-                EditText itemName = convertView.findViewById(R.id.edtAddedItemName);
-                EditText quantity = convertView.findViewById(R.id.edtAddedQuantity);
-                EditText amount = convertView.findViewById(R.id.edtAddedAmount);
-
+                TextView itemName = convertView.findViewById(R.id.tvAddedItemName);
+                TextView quantity = convertView.findViewById(R.id.tvAddedQuantity);
+                TextView amount = convertView.findViewById(R.id.tvAddedAmount);
                 if (itemName != null) {
                     itemName.setText(invoice.getName());
-                    final String originalItemName = invoice.getName();
-
-                    itemName.setOnFocusChangeListener((v, hasFocus) -> {
-                        if (!hasFocus) {
-                            String newItemName = itemName.getText().toString();
-                            if (newItemName.isEmpty()) {
-                                itemName.setError("Can not be empty");
-                                return;
-                            }
-
-                            String newItemN = newItemName;
-
-                            if (!newItemName.equals(originalItemName)) {
-                                if (newItemN.isBlank()) {
-                                    Toast.makeText(getContext(), "Item name is empty", Toast.LENGTH_SHORT).show();
-                                    itemName.setError("Cant be empty");
-                                    invoice.setName(originalItemName);
-                                } else {
-                                    invoice.setName(newItemName);
-                                }
-                                notifyDataSetChanged();
-                            }
-                        }
-                    });
                 }
                 if (quantity != null) {
                     quantity.setText(invoice.getQuantity());
-                    final String originalQuantity = invoice.getQuantity();
-
-                    quantity.setOnFocusChangeListener((v, hasFocus) -> {
-                        if (!hasFocus) {
-                            String newQuantityText = quantity.getText().toString();
-                            if (newQuantityText.isEmpty()) {
-                                quantity.setError("Please Enter Greater than 0");
-                                return;
-                            }
-
-                            int newQuantity = Integer.parseInt(newQuantityText);
-
-                            if (!newQuantityText.equals(originalQuantity)) {
-                                if (newQuantity <= 0) {
-                                    Toast.makeText(getContext(), "Quantity is zero", Toast.LENGTH_SHORT).show();
-                                    quantity.setError("Please Enter Greater than 0");
-                                    invoice.setQuantity(originalQuantity);
-                                } else {
-                                    invoice.setQuantity(newQuantityText);
-                                }
-                                notifyDataSetChanged();
-                            }
-                        }
-                    });
                 }
 
                 if (amount != null) {
-                    amount.setText(invoice.getAmount());
-                    final String originalAmount = invoice.getAmount();
-
-                    amount.setOnFocusChangeListener((v, hasFocus) -> {
-                        if (!hasFocus) {
-                            String newAmountText = amount.getText().toString();
-                            if (newAmountText.isEmpty()) {
-                                amount.setError("Please Enter Greater than 0");
-                                return;
-                            }
-
-                            Double newAmount = Double.parseDouble(newAmountText);
-
-                            if (!newAmountText.equals(originalAmount)) {
-                                if (newAmount <= 0) {
-                                    Toast.makeText(getContext(), "Amount is zero", Toast.LENGTH_SHORT).show();
-                                    amount.setError("Please Enter Greater than 0");
-                                    invoice.setAmount(originalAmount);
-                                } else {
-                                    invoice.setAmount(newAmountText);
-                                }
-                                notifyDataSetChanged();
-                            }
-                        }
-                    });
+                    amount.setText("₹ "+invoice.getAmount());
                 }
+                TextView itemTotal = convertView.findViewById(R.id.tvItemTotalAmount);
+                int qty = Integer.parseInt(invoice.getQuantity());
+                double amt = Double.parseDouble(invoice.getAmount());
+                double total = amt * qty;
+
+                itemTotal.setText("₹"+String.format("%.2f", total));
+
 
                 recalculateTotal();
             } else {
@@ -266,9 +201,11 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
             AddInvoice invoice = getItem(i);
             if (invoice != null) {
                 try {
+
                     double amount = Double.parseDouble(invoice.getAmount());
                     int quantity = Integer.parseInt(invoice.getQuantity());
                     totalAmt += amount * quantity;
+
                 } catch (NumberFormatException e) {
                     // Handle the case where amount or quantity is not a valid number
                 }
@@ -276,6 +213,8 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
         }
 
         if (totalTextView != null) {
+
+
             totalTextView.setText(String.format("%.2f", totalAmt));
         } else {
             Log.e("CardAdapter1", "TextView for total amount is null.");

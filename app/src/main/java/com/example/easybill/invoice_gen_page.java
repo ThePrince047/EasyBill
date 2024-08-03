@@ -30,7 +30,7 @@ import java.util.List;
 
 public class invoice_gen_page extends AppCompatActivity {
     Button button;
-    EditText user, amount, quantity;
+    EditText edtItemName, edtAmount, edtQuantity,edtTax;
     TextView total;
     ListView listView;
     List<AddInvoice> invoicesList;
@@ -48,9 +48,11 @@ public class invoice_gen_page extends AppCompatActivity {
         });
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        user = findViewById(R.id.edtItemName);
-        amount = findViewById(R.id.edtAmount);
-        quantity = findViewById(R.id.edtQuantity);
+        edtItemName = findViewById(R.id.edtItemName);
+        edtAmount = findViewById(R.id.edtAmount);
+        edtQuantity = findViewById(R.id.edtQuantity);
+        edtTax = findViewById(R.id.edtTax);
+
         total = findViewById(R.id.tvTotalAmount);
         button = findViewById(R.id.btnAddInvoice);
         listView = findViewById(R.id.lvAddedItems);
@@ -62,13 +64,14 @@ public class invoice_gen_page extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
 
         button.setOnClickListener(v -> {
-            String itemName = user.getText().toString();
-            String itemAmount = amount.getText().toString();
-            String itemQuantity = quantity.getText().toString();
+            String itemName = edtItemName.getText().toString();
+            String itemAmount = edtAmount.getText().toString();
+            String itemQuantity = edtQuantity.getText().toString();
+            String itemTax = edtTax.getText().toString();
 
-            if (validateFields(itemName, itemAmount, itemQuantity)) {
+            if (validateFields(itemName, itemAmount, itemQuantity,itemTax)) {
                 if (isItemUnique(itemName)) {
-                    AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount);
+                    AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount,itemTax);
                     invoicesList.add(newInvoice);
                     cardAdapter.notifyDataSetChanged();
                 } else {
@@ -78,39 +81,54 @@ public class invoice_gen_page extends AppCompatActivity {
         });
     }
 
-    private boolean validateFields(String itemName, String itemAmount, String itemQuantity) {
+    private boolean validateFields(String itemName, String itemAmount, String itemQuantity,String itemTax) {
         boolean isValid = true;
         if (itemName.isEmpty()) {
-            user.setError("Item name cannot be empty");
+            edtItemName.setError("Item name cannot be empty");
             isValid = false;
         }
         if (itemAmount.isEmpty()) {
-            amount.setError("Amount cannot be empty");
+            edtAmount.setError("Amount cannot be empty");
             isValid = false;
         } else {
             try {
                 double amt = Double.parseDouble(itemAmount);
                 if (amt <= 0) {
-                    amount.setError("Amount must be greater than zero");
+                    edtAmount.setError("Amount must be greater than zero");
                     isValid = false;
                 }
             } catch (NumberFormatException e) {
-                amount.setError("Invalid amount");
+                edtAmount.setError("Invalid amount");
                 isValid = false;
             }
         }
         if (itemQuantity.isEmpty()) {
-            quantity.setError("Quantity cannot be empty");
+            edtQuantity.setError("Quantity cannot be empty");
             isValid = false;
         } else {
             try {
                 int qty = Integer.parseInt(itemQuantity);
                 if (qty <= 0) {
-                    quantity.setError("Quantity must be greater than zero");
+                    edtQuantity.setError("Quantity must be greater than zero");
                     isValid = false;
                 }
             } catch (NumberFormatException e) {
-                quantity.setError("Invalid quantity");
+                edtQuantity.setError("Invalid quantity");
+                isValid = false;
+            }
+        }
+        if (itemTax.isEmpty()) {
+            edtTax.setError("Tax cannot be empty");
+            isValid = false;
+        } else {
+            try {
+                int tax = Integer.parseInt(itemTax);
+                if (tax <= 0) {
+                    edtTax.setError("Tax must be greater than zero");
+                    isValid = false;
+                }
+            } catch (NumberFormatException e) {
+                edtTax.setError("Invalid quantity");
                 isValid = false;
             }
         }
@@ -120,7 +138,7 @@ public class invoice_gen_page extends AppCompatActivity {
     private boolean isItemUnique(String itemName) {
         String normalizedItemName = itemName.trim().toLowerCase(); // Normalize the input item name
         for (AddInvoice invoice : invoicesList) {
-            if (invoice.getName().trim().toLowerCase().equals(normalizedItemName)) {
+            if (invoice.getItemName().trim().toLowerCase().equals(normalizedItemName)) {
                 return false; // Item already exists in the list
             }
         }
@@ -160,19 +178,20 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
                 TextView itemName = convertView.findViewById(R.id.tvAddedItemName);
                 TextView quantity = convertView.findViewById(R.id.tvAddedQuantity);
                 TextView amount = convertView.findViewById(R.id.tvAddedAmount);
+
                 if (itemName != null) {
-                    itemName.setText(invoice.getName());
+                    itemName.setText(invoice.getItemName());
                 }
                 if (quantity != null) {
-                    quantity.setText(invoice.getQuantity());
+                    quantity.setText(invoice.getItemQuantity());
                 }
 
                 if (amount != null) {
-                    amount.setText("₹ "+invoice.getAmount());
+                    amount.setText("₹ "+invoice.getItemAmount());
                 }
                 TextView itemTotal = convertView.findViewById(R.id.tvItemTotalAmount);
-                int qty = Integer.parseInt(invoice.getQuantity());
-                double amt = Double.parseDouble(invoice.getAmount());
+                int qty = Integer.parseInt(invoice.getItemQuantity());
+                double amt = Double.parseDouble(invoice.getItemAmount());
                 double total = amt * qty;
 
                 itemTotal.setText("₹"+String.format("%.2f", total));
@@ -202,8 +221,8 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
             if (invoice != null) {
                 try {
 
-                    double amount = Double.parseDouble(invoice.getAmount());
-                    int quantity = Integer.parseInt(invoice.getQuantity());
+                    double amount = Double.parseDouble(invoice.getItemAmount());
+                    int quantity = Integer.parseInt(invoice.getItemQuantity());
                     totalAmt += amount * quantity;
 
                 } catch (NumberFormatException e) {
@@ -224,42 +243,52 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
 
 
 class AddInvoice {
-    private String name;
-    private String quantity;
-    private String amount;
+    private String itemName;
+    private String itemQuantity;
+    private String itemAmount;
+    private  String itemTax;
 
     public AddInvoice() {
         // Default constructor required for calls to DataSnapshot.getValue(Invoice.class)
     }
 
-    public AddInvoice(String name, String quantity, String amount) {
-        this.name = name;
-        this.quantity = quantity;
-        this.amount = amount;
+    public AddInvoice(String itemName, String itemQuantity, String itemAmount, String itemTax) {
+        this.itemName = itemName;
+        this.itemQuantity = itemQuantity;
+        this.itemAmount = itemAmount;
+        this.itemTax = itemTax;
     }
 
-    public String getName() {
-        return name;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getItemQuantity() {
+        return itemQuantity;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setItemQuantity(String itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public String getItemAmount() {
+        return itemAmount;
     }
 
-    public String getAmount() {
-        return amount;
+    public void setItemAmount(String itemAmount) {
+        this.itemAmount = itemAmount;
+    }
+
+    public String getItemTax() {
+        return itemTax;
+    }
+
+    public void setItemTax(String itemTax) {
+        this.itemTax = itemTax;
     }
 }
 

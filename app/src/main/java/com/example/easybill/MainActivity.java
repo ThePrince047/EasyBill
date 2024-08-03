@@ -45,8 +45,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ListView listView;
-    List<Invoice> invoicesList;
-    CardAdapter cardAdapter;
+    //List<Invoice> invoicesList;
+    //CardAdapter cardAdapter;
     TextView homeamt, Username, viewall;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fab = findViewById(R.id.fabButton);
         listView = findViewById(R.id.homeinvoicelist);
-        invoicesList = new ArrayList<>();
-        cardAdapter = new CardAdapter(this, invoicesList);
-        listView.setAdapter(cardAdapter);
+        //invoicesList = new ArrayList<>();
+        //cardAdapter = new CardAdapter(this, invoicesList);
+        //listView.setAdapter(cardAdapter);
         homeamt = findViewById(R.id.homeamt);
         Username = findViewById(R.id.lblUser);
 
@@ -90,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                invoicesList.clear();
+                //invoicesList.clear();
                 if (value != null) {
                     for (DocumentSnapshot doc : value) {
-                        Invoice invoice = doc.toObject(Invoice.class);
-                        invoicesList.add(invoice);
+                        //Invoice invoice = doc.toObject(Invoice.class);
+                        //invoicesList.add(invoice);
                     }
                 }
-                cardAdapter.notifyDataSetChanged();
+                //cardAdapter.notifyDataSetChanged();
             }
         });
 
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-class CardAdapter extends ArrayAdapter<Invoice> {
+/*class CardAdapter extends ArrayAdapter<Invoice> {
     public CardAdapter(Context context, List<Invoice> invoices) {
         super(context, 0, invoices);
     }
@@ -265,4 +265,4 @@ class Invoice {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-}
+}*/

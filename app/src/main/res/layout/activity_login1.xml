@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0043F1"
+    tools:context=".login1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:backgroundTint="#EAEAEA"
+        android:background="@drawable/shape1"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textSize="40dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/nexa_font3"
+            android:textColor="#002C58"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let's you in"
+            android:textSize="15dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/nexa_font3"
+            android:textColor="#002C90"
+            android:layout_gravity="center"
+            android:gravity="center"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_with_facebook"
+        android:layout_width="320dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:drawableLeft="@drawable/facebook1"
+        app:backgroundTint="#FFFFFF"
+        android:background="@drawable/shape3"
+        android:text="Sign In with Facebook"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nexa_font3"
+        android:textSize="20dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_with_google"
+            android:layout_width="320dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/google"
+            app:backgroundTint="#FFFFFF"
+            android:background="@drawable/shape3"
+            android:text="Sign In with Google"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nexa_font3"
+            android:textSize="20dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"
+            android:textSize="25dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="#808080"
+            />
+
+        <LinearLayout
+
+            android:id="@+id/linear1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_txt3"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            >
+
+
+            <EditText
+                android:id="@+id/loginEmail"
+                android:layout_width="320dp"
+                android:layout_height="60dp"
+                android:paddingStart="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape2"
+                android:drawableLeft="@drawable/baseline_email_24"
+                android:drawablePadding="10dp"
+
+                android:ems="15"
+                android:layout_gravity="center"
+                android:hint="Phone number or Email Id "
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                />
+
+
+            <EditText
+                android:id="@+id/loginPass"
+                android:layout_width="320dp"
+                android:layout_height="60dp"
+                android:paddingStart="15dp"
+                android:background="@drawable/shape2"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:layout_marginTop="15dp"
+                android:drawablePadding="10dp"
+                android:ems="15"
+                android:layout_gravity="center"
+                android:hint="Password"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                />
+
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="forgot password ?"
+                android:textColor="@color/black"
+                android:layout_marginLeft="198dp"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signin_btn"
+            android:layout_width="320dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="80dp"
+            android:text="Sign In"
+            android:textSize="25dp"
+            android:fontFamily="@font/nexa_font3"
+            android:drawableRight="@drawable/right_arrow"
+            android:background="@drawable/shape3"
+            app:backgroundTint="#002C58"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account ?"
+            android:textSize="18dp"
+            android:textColor="#002C90"
+            android:fontFamily="@font/nexa_font3"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+            <TextView
+                android:id="@+id/sign_up_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="( Sign Up )"
+                android:fontFamily="@font/nexa_font3"
+                android:textSize="20dp"
+                android:textColor="#002C58"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

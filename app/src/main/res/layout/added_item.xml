@@ -20,27 +20,34 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tvAddedItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:layout_toRightOf="@id/btnRemovefromcart"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
+                android:text="Loading Item Name"
 
  />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tvAddedQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvAddedItemName"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_toRightOf="@id/btnRemovefromcart"
                 android:textSize="17dp"
+                android:text="Qty"
 
                                 />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/tvAddedAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,6 +55,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
+                android:text="Loading Amount"
                 android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@+id/textView2"
 
@@ -59,9 +67,9 @@
             <ImageButton
                 android:id="@+id/btnRemovefromcart"
                 app:cornerRadius="0dp"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:backgroundTint="#00FF0000"
                 android:layout_width="25dp"
 
@@ -84,14 +92,30 @@
                 android:text="X" />
 
             <TextView
+                android:id="@+id/tvTax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvItemTotalAmount"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="19dp"
+                android:text="TextView"
+                android:textColor="#3C3C3C"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/tvItemTotalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="19dp"
                 android:text="TextView"
-                android:layout_toLeftOf="@id/btnRemovefromcart"
-                android:layout_marginEnd="20dp"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"/>
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

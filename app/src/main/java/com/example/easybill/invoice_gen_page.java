@@ -2,8 +2,6 @@ package com.example.easybill;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class invoice_gen_page extends AppCompatActivity {
+public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailog.InvoiceDialogListener {
     Button button;
-    EditText edtItemName, edtAmount, edtQuantity,edtTax;
+    EditText edtItemName, edtAmount, edtQuantity, edtTax;
     TextView total;
     ListView listView;
     List<AddInvoice> invoicesList;
@@ -48,10 +46,10 @@ public class invoice_gen_page extends AppCompatActivity {
         });
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        edtItemName = findViewById(R.id.edtItemName);
-        edtAmount = findViewById(R.id.edtAmount);
-        edtQuantity = findViewById(R.id.edtQuantity);
-        edtTax = findViewById(R.id.edtTax);
+        edtItemName = findViewById(R.id.edtname);
+        edtAmount = findViewById(R.id.edtamt);
+        edtQuantity = findViewById(R.id.edtqty);
+        //edtTax = findViewById(R.id.edtTax);
 
         total = findViewById(R.id.tvTotalAmount);
         button = findViewById(R.id.btnAddInvoice);
@@ -64,24 +62,25 @@ public class invoice_gen_page extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
 
         button.setOnClickListener(v -> {
-            String itemName = edtItemName.getText().toString();
-            String itemAmount = edtAmount.getText().toString();
-            String itemQuantity = edtQuantity.getText().toString();
-            String itemTax = edtTax.getText().toString();
-
-            if (validateFields(itemName, itemAmount, itemQuantity,itemTax)) {
-                if (isItemUnique(itemName)) {
-                    AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount,itemTax);
-                    invoicesList.add(newInvoice);
-                    cardAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(this, "Item already exists in the list", Toast.LENGTH_SHORT).show();
-                }
-            }
+            Invoice_Dailog invoiceDialog = new Invoice_Dailog(this, this);
+            invoiceDialog.showInvoiceDialog();
         });
     }
 
-    private boolean validateFields(String itemName, String itemAmount, String itemQuantity,String itemTax) {
+    @Override
+    public void onInvoiceAdded(String itemName, String itemQuantity, String itemAmount) {
+        if (validateFields(itemName, itemAmount, itemQuantity)) {
+            if (isItemUnique(itemName)) {
+                AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount);
+                invoicesList.add(newInvoice);
+                cardAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(this, "Item already exists in the list", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private boolean validateFields(String itemName, String itemAmount, String itemQuantity) {
         boolean isValid = true;
         if (itemName.isEmpty()) {
             edtItemName.setError("Item name cannot be empty");
@@ -117,46 +116,43 @@ public class invoice_gen_page extends AppCompatActivity {
                 isValid = false;
             }
         }
-        if (itemTax.isEmpty()) {
-            edtTax.setError("Tax cannot be empty");
-            isValid = false;
-        } else {
-            try {
-                int tax = Integer.parseInt(itemTax);
-                if (tax <= 0) {
-                    edtTax.setError("Tax must be greater than zero");
-                    isValid = false;
-                }
-            } catch (NumberFormatException e) {
-                edtTax.setError("Invalid quantity");
-                isValid = false;
-            }
-        }
+//        if (itemTax.isEmpty()) {
+//            edtTax.setError("Tax cannot be empty");
+//            isValid = false;
+//        } else {
+//            try {
+//                int tax = Integer.parseInt(itemTax);
+//                if (tax <= 0) {
+//                    edtTax.setError("Tax must be greater than zero");
+//                    isValid = false;
+//                }
+//            } catch (NumberFormatException e) {
+//                edtTax.setError("Invalid tax");
+//                isValid = false;
+//            }
+//        }
         return isValid;
     }
 
     private boolean isItemUnique(String itemName) {
-        String normalizedItemName = itemName.trim().toLowerCase(); // Normalize the input item name
+        String normalizedItemName = itemName.trim().toLowerCase();
         for (AddInvoice invoice : invoicesList) {
             if (invoice.getItemName().trim().toLowerCase().equals(normalizedItemName)) {
-                return false; // Item already exists in the list
+                return false;
             }
         }
-        return true; // Item is unique
+        return true;
     }
-
 }
 
 
-
 class CardAdapter1 extends ArrayAdapter<AddInvoice> {
-    private double totalAmt,totalItemAmount;
+    private double totalAmt;
     private TextView totalTextView;
 
     public CardAdapter1(Context context, List<AddInvoice> invoices) {
         super(context, 0, invoices);
         totalTextView = ((AppCompatActivity) context).findViewById(R.id.tvTotalAmount);
-
     }
 
     @Override
@@ -187,15 +183,14 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
                 }
 
                 if (amount != null) {
-                    amount.setText("₹ "+invoice.getItemAmount());
+                    amount.setText("₹ " + invoice.getItemAmount());
                 }
                 TextView itemTotal = convertView.findViewById(R.id.tvItemTotalAmount);
                 int qty = Integer.parseInt(invoice.getItemQuantity());
                 double amt = Double.parseDouble(invoice.getItemAmount());
                 double total = amt * qty;
 
-                itemTotal.setText("₹"+String.format("%.2f", total));
-
+                itemTotal.setText("₹" + String.format("%.2f", total));
 
                 recalculateTotal();
             } else {
@@ -220,11 +215,9 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
             AddInvoice invoice = getItem(i);
             if (invoice != null) {
                 try {
-
                     double amount = Double.parseDouble(invoice.getItemAmount());
                     int quantity = Integer.parseInt(invoice.getItemQuantity());
                     totalAmt += amount * quantity;
-
                 } catch (NumberFormatException e) {
                     // Handle the case where amount or quantity is not a valid number
                 }
@@ -232,15 +225,12 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
         }
 
         if (totalTextView != null) {
-
-
             totalTextView.setText(String.format("%.2f", totalAmt));
         } else {
             Log.e("CardAdapter1", "TextView for total amount is null.");
         }
     }
 }
-
 
 class AddInvoice {
     private String itemName;
@@ -252,11 +242,11 @@ class AddInvoice {
         // Default constructor required for calls to DataSnapshot.getValue(Invoice.class)
     }
 
-    public AddInvoice(String itemName, String itemQuantity, String itemAmount, String itemTax) {
+    public AddInvoice(String itemName, String itemQuantity, String itemAmount) {
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
         this.itemAmount = itemAmount;
-        this.itemTax = itemTax;
+       // this.itemTax = itemTax;
     }
 
     public String getItemName() {

@@ -9,7 +9,7 @@
     android:background="@color/white">
 
     <EditText
-        android:id="@+id/edtItemName"
+        android:id="@+id/edtname"
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -24,13 +24,13 @@
         />
 
     <EditText
-        android:id="@+id/edtAmount"
+        android:id="@+id/edtamt"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:background="@drawable/border"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:layout_below="@id/edtQuantity"
+        android:layout_below="@id/edtqty"
         android:layout_centerHorizontal="true"
         android:paddingStart="10dp"
         android:hint="Item Amount"
@@ -41,27 +41,12 @@
         />
 
     <EditText
-        android:id="@+id/edtTax"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:background="@drawable/border"
-        android:ems="10"
-        android:layout_below="@id/edtAmount"
-        android:hint="Tax Percentage"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"
-        android:layout_centerHorizontal="true"
-        />
-
-    <EditText
-        android:id="@+id/edtQuantity"
+        android:id="@+id/edtqty"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:background="@drawable/border"
         android:layout_marginBottom="10dp"
-        android:layout_below="@id/edtItemName"
+        android:layout_below="@id/edtname"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Item Quantity"
@@ -76,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Invoice"
-        android:layout_below="@id/edtTax"
+        android:layout_below="@id/edtamt"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="20dp"
         app:cornerRadius= "0dp" />

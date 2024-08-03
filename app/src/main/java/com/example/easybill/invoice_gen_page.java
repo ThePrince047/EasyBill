@@ -69,7 +69,7 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
 
     @Override
     public void onInvoiceAdded(String itemName, String itemQuantity, String itemAmount) {
-        if (validateFields(itemName, itemAmount, itemQuantity)) {
+//        if (validateFields(itemName, itemAmount, itemQuantity)) {
             if (isItemUnique(itemName)) {
                 AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount);
                 invoicesList.add(newInvoice);
@@ -77,7 +77,7 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
             } else {
                 Toast.makeText(this, "Item already exists in the list", Toast.LENGTH_SHORT).show();
             }
-        }
+        //}
     }
 
     private boolean validateFields(String itemName, String itemAmount, String itemQuantity) {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".invoice_gen_page"
-    android:background="#3CB4F0">
+    android:background="#f0f4f7">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,28 +18,35 @@
         android:textStyle="bold"
         android:gravity="center"
         />
-
-    <ListView
-        android:id="@+id/lvAddedItems"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_above="@id/viewTotal"
-        android:layout_centerHorizontal="true"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view1Total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/rounded_corner"
-        android:backgroundTint="@color/white" />
+        android:layout_above="@id/viewTotal"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+       >
+
+        <ListView
+            android:id="@+id/lvAddedItems"
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
+            android:layout_centerHorizontal="true"
+            />
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/viewTotal"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_alignParentBottom="true"
-        app:cardCornerRadius="25dp"
+        app:cardCornerRadius="10dp"
         android:backgroundTint="@color/white"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="100dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp">
 
@@ -140,14 +147,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Items"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="180dp"
+            android:layout_alignBottom="@id/viewTotal"
+            android:layout_marginBottom="125dp"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/ThemeColor"
             android:textColor="@color/white"
             android:id="@+id/btnAddItems"
             android:textStyle="bold"
             android:drawableLeft="@drawable/baseline_add_white"
-            android:textSize="15dp"
+            android:textSize="10dp"
             />
 </RelativeLayout>

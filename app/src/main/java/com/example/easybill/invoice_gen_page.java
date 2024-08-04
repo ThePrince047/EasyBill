@@ -50,7 +50,7 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         //edtTax = findViewById(R.id.edtTax);
 
         total = findViewById(R.id.tvTotalAmount);
-        button = findViewById(R.id.btnAddInvoice);
+        button = findViewById(R.id.btnAddItems);
         listView = findViewById(R.id.lvAddedItems);
         invoicesList = new ArrayList<>();
         cardAdapter = new CardAdapter1(this, invoicesList);

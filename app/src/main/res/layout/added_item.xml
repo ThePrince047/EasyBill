@@ -6,10 +6,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="8dp"
         android:paddingVertical="10dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:layout_toRightOf="@id/btnRemovefromcart"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginStart="20dp"
                 android:text="Loading Item Name"
 
@@ -56,7 +56,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:text="Loading Amount"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="3dp"
                 android:layout_toEndOf="@+id/textView2"
 
 
@@ -101,7 +101,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="21dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="3dp"
                 android:text="TextView"
                 android:textColor="#3C3C3C"
                 android:textSize="10dp"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginEnd="19dp"
                 android:text="TextView"
                 android:textColor="@color/black"

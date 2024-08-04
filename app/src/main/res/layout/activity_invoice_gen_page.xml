@@ -136,7 +136,6 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Place the button above the CardView -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

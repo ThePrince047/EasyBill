@@ -163,12 +163,12 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
 
         if (position < getCount()) {
             AddInvoice invoice = getItem(position);
-            ImageButton removeFromCart = convertView.findViewById(R.id.btnRemovefromcart);
+            //ImageButton removeFromCart = convertView.findViewById(R.id.btnRemovefromcart);
 
-            removeFromCart.setOnClickListener(v -> {
-                remove(invoice);
-                recalculateTotal();
-            });
+//            removeFromCart.setOnClickListener(v -> {
+//                remove(invoice);
+//                recalculateTotal();
+//            });
 
             if (invoice != null) {
                 TextView itemName = convertView.findViewById(R.id.tvAddedItemName);

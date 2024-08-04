@@ -1,19 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:paddingVertical="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        app:cardBackgroundColor="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,60 +14,41 @@
                 android:id="@+id/tvAddedItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:layout_toRightOf="@id/btnRemovefromcart"
+                android:textSize="15dp"
+                android:textStyle="bold"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="16dp"
                 android:text="Loading Item Name"
 
  />
 
             <TextView
-                android:textColor="@color/black"
+                android:textColor="#808080"
                 android:id="@+id/tvAddedQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvAddedItemName"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="20dp"
-                android:layout_toRightOf="@id/btnRemovefromcart"
-                android:textSize="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+
+                android:textSize="12dp"
                 android:text="Qty"
 
                                 />
 
             <TextView
-                android:textColor="@color/black"
+                android:textColor="#808080"
                 android:id="@+id/tvAddedAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvAddedItemName"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Loading Amount"
                 android:layout_marginBottom="3dp"
                 android:layout_toEndOf="@+id/textView2"
-
-
-
-
-                android:textSize="17dp" />
-
-            <ImageButton
-                android:id="@+id/btnRemovefromcart"
-                app:cornerRadius="0dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="#00FF0000"
-                android:layout_width="25dp"
-
-                android:layout_height="25dp"
-                android:textAlignment="center"
-
-                android:text="X"
-                android:src="@drawable/icnremovefromlist"/>
+                android:textSize="12dp" />
 
             <TextView
 
@@ -86,22 +57,18 @@
                 android:id="@+id/textView2"
                 android:layout_marginStart="5dp"
 
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:textSize="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="X" />
+                android:text="x" />
 
             <TextView
                 android:id="@+id/tvTax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginTop="21dp"
+                android:layout_centerHorizontal="true"
                 android:text="TextView"
                 android:textColor="#3C3C3C"
                 android:textSize="10dp"
@@ -113,14 +80,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="19dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="18dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="54dp"
+                android:background="#57808080"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

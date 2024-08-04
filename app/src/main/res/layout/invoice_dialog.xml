@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="16dp">
 
         <EditText
             android:id="@+id/editDialogItemName"
@@ -35,4 +36,15 @@
             android:hint="Amount"
             android:inputType="numberDecimal"
             android:layout_below="@id/editDialogQuantity" />
+
+    <EditText
+        android:id="@+id/editDialogTax"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:hint="Tax"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/editDialogAmount" />
     </RelativeLayout>

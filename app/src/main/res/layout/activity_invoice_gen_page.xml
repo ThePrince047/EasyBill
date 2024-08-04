@@ -6,82 +6,140 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".invoice_gen_page"
-    android:background="@color/white">
+    android:background="#f0f4f7">
 
-    <EditText
-        android:id="@+id/edtname"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:background="@drawable/border"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:hint="Item Name"
-        android:paddingStart="10dp"
-        />
-
-    <EditText
-        android:id="@+id/edtamt"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:background="@drawable/border"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:layout_below="@id/edtqty"
-        android:layout_centerHorizontal="true"
-        android:paddingStart="10dp"
-        android:hint="Item Amount"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/black"
-        />
-
-    <EditText
-        android:id="@+id/edtqty"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:background="@drawable/border"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@id/edtname"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="Item Quantity"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="@color/black"
-       />
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddInvoice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Invoice"
-        android:layout_below="@id/edtamt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="20dp"
-        app:cornerRadius= "0dp" />
 
     <ListView
         android:id="@+id/lvAddedItems"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/btnAddInvoice"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="100dp" />
+        android:layout_height="400dp"
+        android:layout_above="@+id/viewTotal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/viewTotal"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_corner"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="@color/white"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddInvoice"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/viewTotal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="134dp"
+        android:text="Add Item"
+        android:textAlignment="center"
+        android:textSize="10dp"
+        app:cornerRadius="25dp" />
 
     <TextView
+        android:id="@+id/lblGrandTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblTotalAmount"
+
+        android:layout_marginTop="87dp"
+        android:layout_marginStart="40dp"
+        android:text="Grand Total :"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/lblTax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblTotalAmount"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="17dp"
+        android:text="Tax :"
+        android:textColor="@color/black" />
+
+
+    <TextView
+
+        android:id="@+id/lblTotalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/viewTotal"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Sub Total :"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/lblDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblTotalAmount"
+
+        android:layout_marginTop="47dp"
+        android:layout_marginStart="40dp"
+        android:text="Discount :"
+        android:textColor="@color/black" />
+
+    <TextView
+
         android:id="@+id/tvTotalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_alignTop="@id/viewTotal"
+        android:textColor="@color/black"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:text="TextView" />
+
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="8dp"
+        android:text="0.00" />
+
+    <TextView
+        android:id="@+id/tvTax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTotalAmount"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="17dp"
+        android:textColor="@color/black"
+        android:text="0.00" />
+
+    <TextView
+        android:id="@+id/tvDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTotalAmount"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="47dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="40dp"
+        android:text="0.00" />
+
+    <TextView
+        android:id="@+id/tvGrandTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTotalAmount"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="40dp"
+        android:textColor="@color/black"
+        android:text="0.00"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

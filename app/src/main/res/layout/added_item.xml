@@ -85,6 +85,7 @@
                 android:layout_below="@id/tvAddedItemName"
                 android:id="@+id/textView2"
                 android:layout_marginStart="5dp"
+
                 android:layout_marginTop="10dp"
                 android:textSize="15dp"
                 android:layout_width="wrap_content"
@@ -95,10 +96,12 @@
                 android:id="@+id/tvTax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvItemTotalAmount"
+
+
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="19dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="10dp"
                 android:text="TextView"
                 android:textColor="#3C3C3C"
                 android:textSize="10dp"

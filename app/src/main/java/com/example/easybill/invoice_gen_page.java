@@ -46,9 +46,7 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         });
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        edtItemName = findViewById(R.id.edtname);
-        edtAmount = findViewById(R.id.edtamt);
-        edtQuantity = findViewById(R.id.edtqty);
+
         //edtTax = findViewById(R.id.edtTax);
 
         total = findViewById(R.id.tvTotalAmount);
@@ -68,10 +66,10 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
     }
 
     @Override
-    public void onInvoiceAdded(String itemName, String itemQuantity, String itemAmount) {
-//        if (validateFields(itemName, itemAmount, itemQuantity)) {
+    public void onInvoiceAdded(String itemName, String itemQuantity, String itemAmount , String itemTax) {
+//       if (validateFields(itemName, itemAmount, itemQuantity,itemTax)) {
             if (isItemUnique(itemName)) {
-                AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount);
+                AddInvoice newInvoice = new AddInvoice(itemName, itemQuantity, itemAmount,itemTax);
                 invoicesList.add(newInvoice);
                 cardAdapter.notifyDataSetChanged();
             } else {
@@ -147,12 +145,14 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
 
 
 class CardAdapter1 extends ArrayAdapter<AddInvoice> {
-    private double totalAmt;
-    private TextView totalTextView;
+    private double totalAmt,totalTax,grandTotal;
+    private TextView totalTextView,taxTextView,grandTotalTextView;
 
     public CardAdapter1(Context context, List<AddInvoice> invoices) {
         super(context, 0, invoices);
         totalTextView = ((AppCompatActivity) context).findViewById(R.id.tvTotalAmount);
+        taxTextView = ((AppCompatActivity) context).findViewById(R.id.tvTax);
+        grandTotalTextView = ((AppCompatActivity) context).findViewById(R.id.tvGrandTotal);
     }
 
     @Override
@@ -174,6 +174,7 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
                 TextView itemName = convertView.findViewById(R.id.tvAddedItemName);
                 TextView quantity = convertView.findViewById(R.id.tvAddedQuantity);
                 TextView amount = convertView.findViewById(R.id.tvAddedAmount);
+                TextView tax = convertView.findViewById(R.id.tvTax);
 
                 if (itemName != null) {
                     itemName.setText(invoice.getItemName());
@@ -185,12 +186,19 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
                 if (amount != null) {
                     amount.setText("₹ " + invoice.getItemAmount());
                 }
+                if(tax != null){
+                    tax.setText("Tax : "+invoice.getItemTax()+"%" );
+                }
                 TextView itemTotal = convertView.findViewById(R.id.tvItemTotalAmount);
+                TextView taxTotal = convertView.findViewById(R.id.tvTax);
+                int taxSlab = Integer.parseInt(invoice.getItemTax());
                 int qty = Integer.parseInt(invoice.getItemQuantity());
-                double amt = Double.parseDouble(invoice.getItemAmount());
-                double total = amt * qty;
+                double TaxedAmt = Double.parseDouble(invoice.getItemAmount());
+                double total = TaxedAmt * qty;
+                double TaxAmt = total * (taxSlab/100);
+                total-=TaxAmt;
 
-                itemTotal.setText("₹" + String.format("%.2f", total));
+                        itemTotal.setText("₹" + String.format("%.2f", total));
 
                 recalculateTotal();
             } else {
@@ -211,74 +219,78 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
 
     private void recalculateTotal() {
         totalAmt = 0;
+        totalTax =0;
+        grandTotal=0;
         for (int i = 0; i < getCount(); i++) {
             AddInvoice invoice = getItem(i);
             if (invoice != null) {
                 try {
+                    // Parse amount, quantity, and tax from invoice
                     double amount = Double.parseDouble(invoice.getItemAmount());
                     int quantity = Integer.parseInt(invoice.getItemQuantity());
-                    totalAmt += amount * quantity;
+                    int taxSlab = Integer.parseInt(invoice.getItemTax());
+
+                    // Calculate total amount including tax for the current invoice
+                    double itemTotalWithTax = amount * quantity;
+                    double taxAmount = itemTotalWithTax * (taxSlab / 100.0);
+                    double itemTotalBeforeTax = itemTotalWithTax - taxAmount;
+
+
+                    // Accumulate total amount before tax
+                    totalAmt += itemTotalBeforeTax;
+                    totalTax += taxAmount;
+                    grandTotal = totalAmt + totalTax;
+
                 } catch (NumberFormatException e) {
-                    // Handle the case where amount or quantity is not a valid number
+                    // Log an error or handle the case where amount, quantity, or tax is not a valid number
+                    Log.e("CardAdapter1", "Number format exception while recalculating total", e);
                 }
             }
         }
 
         if (totalTextView != null) {
-            totalTextView.setText(String.format("%.2f", totalAmt));
+            // Display the total amount before tax
+            totalTextView.setText(String.format("₹ %.2f", totalAmt));
+            taxTextView.setText(String.format("₹ %.2f", totalTax));
+            grandTotalTextView.setText(String.format("₹ %.2f", grandTotal));
         } else {
             Log.e("CardAdapter1", "TextView for total amount is null.");
         }
     }
+
 }
 
 class AddInvoice {
     private String itemName;
     private String itemQuantity;
     private String itemAmount;
-    private  String itemTax;
+    private String itemTax;
 
     public AddInvoice() {
         // Default constructor required for calls to DataSnapshot.getValue(Invoice.class)
     }
 
-    public AddInvoice(String itemName, String itemQuantity, String itemAmount) {
+    public AddInvoice(String itemName, String itemQuantity, String itemAmount,String itemTax) {
         this.itemName = itemName;
         this.itemQuantity = itemQuantity;
         this.itemAmount = itemAmount;
-       // this.itemTax = itemTax;
+        this.itemTax = itemTax;
     }
 
     public String getItemName() {
         return itemName;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
     public String getItemQuantity() {
         return itemQuantity;
-    }
-
-    public void setItemQuantity(String itemQuantity) {
-        this.itemQuantity = itemQuantity;
     }
 
     public String getItemAmount() {
         return itemAmount;
     }
 
-    public void setItemAmount(String itemAmount) {
-        this.itemAmount = itemAmount;
-    }
-
     public String getItemTax() {
         return itemTax;
-    }
-
-    public void setItemTax(String itemTax) {
-        this.itemTax = itemTax;
     }
 }
 

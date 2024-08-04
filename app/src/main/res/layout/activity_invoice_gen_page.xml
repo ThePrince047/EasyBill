@@ -6,13 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".invoice_gen_page"
-    android:background="#f0f4f7">
+    android:background="#3CB4F0">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Invoice Generator"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
 
     <ListView
         android:id="@+id/lvAddedItems"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="500dp"
         android:layout_above="@+id/viewTotal"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
@@ -52,7 +62,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblTotalAmount"
-
         android:layout_marginTop="87dp"
         android:layout_marginStart="40dp"
         android:text="Grand Total :"
@@ -73,7 +82,6 @@
 
 
     <TextView
-
         android:id="@+id/lblTotalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,21 +96,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblTotalAmount"
-
         android:layout_marginTop="47dp"
         android:layout_marginStart="40dp"
         android:text="Discount :"
         android:textColor="@color/black" />
 
     <TextView
-
         android:id="@+id/tvTotalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/viewTotal"
         android:textColor="@color/black"
         android:layout_alignParentEnd="true"
-
         android:layout_marginEnd="40dp"
         android:layout_marginTop="8dp"
         android:text="0.00" />

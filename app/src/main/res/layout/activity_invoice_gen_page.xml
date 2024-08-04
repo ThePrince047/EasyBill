@@ -70,7 +70,7 @@
         <ListView
             android:id="@+id/lvAddedItems"
             android:layout_width="match_parent"
-            android:layout_height="327dp"
+            android:layout_height="335dp"
             android:layout_marginTop="3dp"
             android:layout_centerHorizontal="true"
             />
@@ -130,6 +130,7 @@
                 android:layout_below="@id/lineSubtotal"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
+                android:textSize="15dp"
                 android:text="TAX :"
                 android:textColor="@color/black" />
 
@@ -139,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
+                android:textSize="15dp"
                 android:text="Subtotal :"
                 android:textColor="@color/black" />
 
@@ -149,6 +151,7 @@
                 android:layout_below="@id/lineTax"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="10dp"
+                android:textSize="15dp"
                 android:text="Discount :"
                 android:textColor="@color/black" />
 
@@ -159,6 +162,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
+                android:textSize="15dp"
                 android:text="₹0.00"
                 android:textColor="@color/black" />
 
@@ -169,6 +173,7 @@
                 android:layout_below="@id/lineSubtotal"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
+                android:textSize="15dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/black"
                 android:text="₹0.00" />
@@ -180,6 +185,7 @@
                 android:layout_below="@id/lineTax"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="8dp"
+                android:textSize="15dp"
                 android:textColor="@color/black"
                 android:layout_marginEnd="20dp"
                 android:text="₹0.00" />

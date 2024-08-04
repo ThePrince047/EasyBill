@@ -78,59 +78,7 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         //}
     }
 
-    private boolean validateFields(String itemName, String itemAmount, String itemQuantity) {
-        boolean isValid = true;
-        if (itemName.isEmpty()) {
-            edtItemName.setError("Item name cannot be empty");
-            isValid = false;
-        }
-        if (itemAmount.isEmpty()) {
-            edtAmount.setError("Amount cannot be empty");
-            isValid = false;
-        } else {
-            try {
-                double amt = Double.parseDouble(itemAmount);
-                if (amt <= 0) {
-                    edtAmount.setError("Amount must be greater than zero");
-                    isValid = false;
-                }
-            } catch (NumberFormatException e) {
-                edtAmount.setError("Invalid amount");
-                isValid = false;
-            }
-        }
-        if (itemQuantity.isEmpty()) {
-            edtQuantity.setError("Quantity cannot be empty");
-            isValid = false;
-        } else {
-            try {
-                int qty = Integer.parseInt(itemQuantity);
-                if (qty <= 0) {
-                    edtQuantity.setError("Quantity must be greater than zero");
-                    isValid = false;
-                }
-            } catch (NumberFormatException e) {
-                edtQuantity.setError("Invalid quantity");
-                isValid = false;
-            }
-        }
-//        if (itemTax.isEmpty()) {
-//            edtTax.setError("Tax cannot be empty");
-//            isValid = false;
-//        } else {
-//            try {
-//                int tax = Integer.parseInt(itemTax);
-//                if (tax <= 0) {
-//                    edtTax.setError("Tax must be greater than zero");
-//                    isValid = false;
-//                }
-//            } catch (NumberFormatException e) {
-//                edtTax.setError("Invalid tax");
-//                isValid = false;
-//            }
-//        }
-        return isValid;
-    }
+
 
     private boolean isItemUnique(String itemName) {
         String normalizedItemName = itemName.trim().toLowerCase();
@@ -193,12 +141,16 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
                 TextView taxTotal = convertView.findViewById(R.id.tvTax);
                 int taxSlab = Integer.parseInt(invoice.getItemTax());
                 int qty = Integer.parseInt(invoice.getItemQuantity());
-                double TaxedAmt = Double.parseDouble(invoice.getItemAmount());
-                double total = TaxedAmt * qty;
-                double TaxAmt = total * (taxSlab/100);
-                total-=TaxAmt;
+                double taxedAmt = Double.parseDouble(invoice.getItemAmount());
+                double total = taxedAmt * qty;
+                if(taxSlab<28){
+                    double taxAmt = total * (taxSlab / 100.0);  // Use 100.0 to ensure floating-point division
+                    total -= taxAmt;
+                    itemTotal.setText("₹" + String.format("%.2f", total));
+                }else{
 
-                        itemTotal.setText("₹" + String.format("%.2f", total));
+                }
+
 
                 recalculateTotal();
             } else {

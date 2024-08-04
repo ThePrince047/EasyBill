@@ -23,7 +23,7 @@ public class Invoice_Dailog {
         EditText edtAmount = dialogView.findViewById(R.id.editDialogAmount);
         EditText edtTax = dialogView.findViewById(R.id.editDialogTax);
 
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context, R.style.ThemeOverlay_MaterialComponents_Dialog)
                 .setTitle("Add Item")
                 .setView(dialogView)
                 .setPositiveButton("Add", null)
@@ -31,15 +31,16 @@ public class Invoice_Dailog {
 
         AlertDialog dialog = dialogBuilder.create();
         dialog.setOnShowListener(dialogInterface -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(android.R.color.white));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(android.R.color.white));
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
                 String itemName = edtItemName.getText().toString();
                 String quantity = edtQuantity.getText().toString();
                 String amount = edtAmount.getText().toString();
                 String tax = edtTax.getText().toString();
 
-
-                if (validateFields(edtItemName, edtQuantity, edtAmount,edtTax)) {
-                    listener.onInvoiceAdded(itemName, quantity, amount,tax);
+                if (validateFields(edtItemName, edtQuantity, edtAmount, edtTax)) {
+                    listener.onInvoiceAdded(itemName, quantity, amount, tax);
                     dialog.dismiss();
                 }
             });
@@ -48,7 +49,7 @@ public class Invoice_Dailog {
         dialog.show();
     }
 
-    private boolean validateFields(EditText edtItemName, EditText edtQuantity, EditText edtAmount,EditText edtTax) {
+    private boolean validateFields(EditText edtItemName, EditText edtQuantity, EditText edtAmount, EditText edtTax) {
         boolean isValid = true;
 
         if (edtItemName.getText().toString().isEmpty()) {
@@ -94,7 +95,7 @@ public class Invoice_Dailog {
             try {
                 int tax = Integer.parseInt(edtTax.getText().toString());
                 if (!((tax >= 0) && (tax <= 28))) {
-                    edtTax.setError("Tax should be in the range of 0 to 26");
+                    edtTax.setError("Tax should be in the range of 0 to 28");
                     isValid = false;
                 }
             } catch (NumberFormatException e) {
@@ -106,6 +107,6 @@ public class Invoice_Dailog {
     }
 
     public interface InvoiceDialogListener {
-        void onInvoiceAdded(String itemName, String quantity, String amount,String tax);
+        void onInvoiceAdded(String itemName, String quantity, String amount, String tax);
     }
 }

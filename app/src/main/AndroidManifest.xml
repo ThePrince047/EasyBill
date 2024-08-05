@@ -12,15 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyBill"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Register_Page"
+            android:exported="false" />
+        <activity
+            android:name=".CompanyInfo"
+            android:exported="false" />
         <activity
             android:name=".Demo"
             android:exported="false" />
         <activity
             android:name=".invoice_gen_page"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
             android:exported="false" />
         <activity
             android:name=".reports_page"

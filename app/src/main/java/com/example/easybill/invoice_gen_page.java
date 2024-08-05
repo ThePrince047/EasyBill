@@ -1,39 +1,37 @@
 package com.example.easybill;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailog.InvoiceDialogListener {
     Button btnAddItem, btnSaveInvoice, btnCancelInvoice;
-    EditText edtItemName, edtAmount, edtQuantity, edtTax;
-    TextView total;
     ListView listView;
     List<AddInvoice> invoicesList;
     CardAdapter1 cardAdapter;
@@ -43,15 +41,6 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_gen_page);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        total = findViewById(R.id.tvTotalAmount);
         btnAddItem = findViewById(R.id.btnAddItems);
         btnSaveInvoice = findViewById(R.id.btnSave);
         btnCancelInvoice = findViewById(R.id.btnCancel);
@@ -60,43 +49,101 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         cardAdapter = new CardAdapter1(this, invoicesList);
         listView.setAdapter(cardAdapter);
 
-        Window window = this.getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
-
         btnAddItem.setOnClickListener(v -> {
             Invoice_Dailog invoiceDialog = new Invoice_Dailog(this, this);
             invoiceDialog.showInvoiceDialog();
         });
 
         btnSaveInvoice.setOnClickListener(v -> {
-            // Check if there are no items in the invoices list
             if (invoicesList.isEmpty()) {
                 Toast.makeText(invoice_gen_page.this, "No items to save. Please add items first.", Toast.LENGTH_SHORT).show();
-                return; // Exit the method early
+                return;
             }
 
-            Intent intent = new Intent(getApplicationContext(), Demo.class);
-
-            // Convert the list to an ArrayList of Parcels
-            ArrayList<AddInvoice> invoicesArrayList = new ArrayList<>(invoicesList);
-
-            // Add the ArrayList to the Intent
-            intent.putParcelableArrayListExtra("invoice_list", invoicesArrayList);
-
-            // Calculate totals
-            double subtotal = cardAdapter.getSubtotal();
-            double tax = cardAdapter.getTotalTax();
-            double grandTotal = cardAdapter.getGrandTotal();
-
-            // Add totals to the Intent
-            intent.putExtra("subtotal", subtotal);
-            intent.putExtra("tax", tax);
-            intent.putExtra("grandTotal", grandTotal);
-
-            // Start the Demo activity
-            startActivity(intent);
+            getNextInvoiceIdAndSave();
         });
 
+        btnCancelInvoice.setOnClickListener(v -> {
+            invoicesList.clear();
+            cardAdapter.notifyDataSetChanged();
+        });
+    }
+
+    private void getNextInvoiceIdAndSave() {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser == null) {
+            Toast.makeText(invoice_gen_page.this, "User not authenticated.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userId = currentUser.getUid();
+        CollectionReference invoicesRef = firestore.collection("EasyBill")
+                .document(userId)
+                .collection("invoices");
+
+        // Retrieve the last invoice ID and get the next one
+        invoicesRef.orderBy("invoiceId", Query.Direction.DESCENDING).limit(1).get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    int nextInvoiceId = 1;
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot lastInvoice = queryDocumentSnapshots.getDocuments().get(0);
+                        Number lastId = lastInvoice.getLong("invoiceId");
+                        if (lastId != null) {
+                            nextInvoiceId = lastId.intValue() + 1;
+                        }
+                    }
+                    saveInvoicesWithId(invoicesRef, nextInvoiceId);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(invoice_gen_page.this, "Error retrieving invoice ID: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void saveInvoicesWithId(CollectionReference invoicesRef, int invoiceId) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser == null) {
+            Toast.makeText(invoice_gen_page.this, "User not authenticated.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Get today's date
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = today.format(formatter);
+
+        // Create a map to hold all invoice items
+        Map<String, Object> invoiceData = new HashMap<>();
+        invoiceData.put("invoiceId", invoiceId);
+        invoiceData.put("date", formattedDate);  // Add date field
+
+        // Add each invoice item to the map
+        for (int i = 0; i < invoicesList.size(); i++) {
+            AddInvoice invoice = invoicesList.get(i);
+            Map<String, Object> itemData = new HashMap<>();
+            itemData.put("itemName", invoice.getItemName());
+            itemData.put("itemQuantity", invoice.getItemQuantity());
+            itemData.put("itemAmount", invoice.getItemAmount());
+            itemData.put("itemTax", invoice.getItemTax());
+
+            invoiceData.put("item" + i, itemData);  // Save each item under a unique key
+        }
+
+        // Save the invoice with the items map
+        invoicesRef.document(String.valueOf(invoiceId))
+                .set(invoiceData)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(invoice_gen_page.this, "Invoice saved successfully!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(invoice_gen_page.this, "Error saving invoice: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+        invoicesList.clear();
+        cardAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -234,8 +281,6 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
     }
 }
 
-
-
 class AddInvoice implements Parcelable {
     private String itemName;
     private String itemQuantity;
@@ -260,7 +305,7 @@ class AddInvoice implements Parcelable {
         itemTax = in.readString();
     }
 
-    public static final Creator<AddInvoice> CREATOR = new Creator<AddInvoice>() {
+    public static final Parcelable.Creator<AddInvoice> CREATOR = new Creator<AddInvoice>() {
         @Override
         public AddInvoice createFromParcel(Parcel in) {
             return new AddInvoice(in);
@@ -290,7 +335,4 @@ class AddInvoice implements Parcelable {
     public String getItemQuantity() { return itemQuantity; }
     public String getItemAmount() { return itemAmount; }
     public String getItemTax() { return itemTax; }
-    }
-
-
-
+}

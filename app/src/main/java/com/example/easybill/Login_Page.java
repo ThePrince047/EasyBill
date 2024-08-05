@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ public class Login_Page extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
+    private TextView lblRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,14 @@ public class Login_Page extends AppCompatActivity {
         emailEditText = findViewById(R.id.edtLoginEmail);
         passwordEditText = findViewById(R.id.edtLoginPass);
         loginButton = findViewById(R.id.btnLogin);
-
+        lblRegister = findViewById(R.id.lblRegister);
+        lblRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Register_Page.class);
+                startActivity(intent);
+            }
+        });
         // Set up the login button click listener
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

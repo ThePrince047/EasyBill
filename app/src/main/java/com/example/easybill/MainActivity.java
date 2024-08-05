@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                                 homeamt.setText("Unknown User");
                             }
                         } else {
-                            homeamt.setText("Document does not exist");
+                            homeamt.setText("0 Error");
                         }
                     }
                 })
@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
     void displayUsername() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("EasyBill")
-                .document(currentUser.getUid())
-                .collection("user_info")
+                .document(currentUser.getUid()) // Replace with actual user ID
+                .collection("company_info")
                 .document(currentUser.getUid());
 
         docRef.get()
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            String user = documentSnapshot.getString("Name");
+                            String user = documentSnapshot.getString("companyName");
                             if (user != null) {
                                 Username.setText(user);
                             } else {
@@ -198,71 +198,4 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-/*class CardAdapter extends ArrayAdapter<Invoice> {
-    public CardAdapter(Context context, List<Invoice> invoices) {
-        super(context, 0, invoices);
-    }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.invoice_list_item, parent, false);
-        }
-
-        Invoice invoice = getItem(position);
-
-        if (invoice != null) {
-            TextView lblPartyname = convertView.findViewById(R.id.lblPartyname);
-            TextView lbldate = convertView.findViewById(R.id.lbldate);
-            TextView lblAmt = convertView.findViewById(R.id.lblAmt);
-
-            lblPartyname.setText(invoice.getName());
-            //lbldate.setText(invoice.getDate());
-            lblAmt.setText(invoice.getAmount().toString());
-        } else {
-            Log.e("CardAdapter", "Invoice object at position " + position + " is null.");
-        }
-
-        return convertView;
-    }
-}
-
-class Invoice {
-    private String name;
-    //private String date;
-    private Double amount;
-
-    public Invoice() {
-        // Default constructor required for calls to DataSnapshot.getValue(Invoice.class)
-    }
-
-    public Invoice(String description, String date, Double amount) {
-        this.name = description;
-        //this.date = date;
-        this.amount = amount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    //public String getDate() {
-    //    return date;
-    //}
-
-    //public void setDate(String date) {
-    //    this.date = date;
-    //}
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-}*/

@@ -17,8 +17,8 @@
             android:name=".Demo"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
-            android:exported="false"></activity>
+            android:name=".invoice_gen_page"
+            android:exported="false" />
         <activity
             android:name=".Login"
             android:exported="false" />
@@ -26,13 +26,13 @@
             android:name=".reports_page"
             android:exported="false" />
         <activity
-            android:name=".register1"
+            android:name=".SplashScreen"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".invoice_gen_page"
+            android:name=".Login_Page"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

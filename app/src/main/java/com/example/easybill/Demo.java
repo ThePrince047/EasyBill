@@ -1,17 +1,21 @@
 package com.example.easybill;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class Demo extends AppCompatActivity {
 
     private LinearLayout itemContainer;
-    private TextView subTotalValue, taxValue, totalValue;
-    private double subTotal = 0.0;
-    private double taxRate = 0.05;
+    private TextView subTotalValue, taxValue, totalValue,date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,59 +26,37 @@ public class Demo extends AppCompatActivity {
         subTotalValue = findViewById(R.id.subTotalValue);
         taxValue = findViewById(R.id.taxValue);
         totalValue = findViewById(R.id.totalValue);
+        date = findViewById(R.id.invoiceDate);
 
-        // Example of adding items
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 1", 2, 10.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
-        addItem("Item 2", 1, 20.00);
 
+// Get today's date
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(calendar.getTime());
+
+// Set today's date to the TextView
+        date.setText("Date: " + formattedDate);
+
+
+        // Retrieve the list of invoices from the Intent
+        ArrayList<AddInvoice> invoiceList = getIntent().getParcelableArrayListExtra("invoice_list");
+
+        // Retrieve subtotal, tax, and grand total from the Intent
+        double subtotal = getIntent().getDoubleExtra("subtotal", 0.0);
+        double tax = getIntent().getDoubleExtra("tax", 0.0);
+        double grandTotal = getIntent().getDoubleExtra("grandTotal", 0.0);
+
+        if (invoiceList != null) {
+            // Iterate over the list and add each item to the view
+            for (AddInvoice invoice : invoiceList) {
+                addItem(invoice.getItemName(), Integer.parseInt(invoice.getItemQuantity()), Double.parseDouble(invoice.getItemAmount()));
+            }
+        }
+
+        // Set the values to TextViews
+        subTotalValue.setText(String.format("₹ %.2f", subtotal));
+        taxValue.setText(String.format("₹ %.2f", tax));
+        totalValue.setText(String.format("₹ %.2f", grandTotal));
     }
 
     private void addItem(String description, int quantity, double price) {
@@ -88,11 +70,7 @@ public class Demo extends AppCompatActivity {
         itemRow.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView descriptionView = new TextView(this);
-        descriptionView.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                2
-        ));
+        descriptionView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2));
         descriptionView.setText(description);
 
         TextView quantityView = new TextView(this);
@@ -104,20 +82,12 @@ public class Demo extends AppCompatActivity {
         quantityView.setText(String.valueOf(quantity));
 
         TextView priceView = new TextView(this);
-        priceView.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1
-        ));
-        priceView.setText(String.format("$%.2f", price));
+        priceView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        priceView.setText(String.format("₹ %.2f", price));
 
         TextView totalView = new TextView(this);
-        totalView.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1
-        ));
-        totalView.setText(String.format("$%.2f", total));
+        totalView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        totalView.setText(String.format("₹ %.2f", total));
 
         itemRow.addView(descriptionView);
         itemRow.addView(quantityView);
@@ -125,17 +95,5 @@ public class Demo extends AppCompatActivity {
         itemRow.addView(totalView);
 
         itemContainer.addView(itemRow);
-
-        updateTotals(total);
-    }
-
-    private void updateTotals(double itemTotal) {
-        subTotal += itemTotal;
-        double tax = subTotal * taxRate;
-        double total = subTotal + tax;
-
-        subTotalValue.setText(String.format("$%.2f", subTotal));
-        taxValue.setText(String.format("$%.2f", tax));
-        totalValue.setText(String.format("$%.2f", total));
     }
 }

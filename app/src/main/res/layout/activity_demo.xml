@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_below="@id/customerAddress"
-            android:paddingTop="16dp">
+            android:paddingTop="1dp">
 
             <!-- Header Row -->
             <LinearLayout
@@ -164,7 +164,7 @@
             android:id="@+id/taxLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tax (5%):"
+            android:text="Tax:"
             android:textStyle="bold"
             android:layout_below="@id/subTotalLabel"
             android:layout_alignParentStart="true"

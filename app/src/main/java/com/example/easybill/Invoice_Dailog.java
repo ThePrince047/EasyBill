@@ -29,10 +29,14 @@ public class Invoice_Dailog {
                 .setPositiveButton("Add", null)
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
+
         AlertDialog dialog = dialogBuilder.create();
         dialog.setOnShowListener(dialogInterface -> {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(android.R.color.white));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(android.R.color.white));
+            // Customize button text color
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(android.R.color.black));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(android.R.color.black));
+
+            // Set OnClickListener for the positive button
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
                 String itemName = edtItemName.getText().toString();
                 String quantity = edtQuantity.getText().toString();
@@ -88,21 +92,23 @@ public class Invoice_Dailog {
                 isValid = false;
             }
         }
+
         if (edtTax.getText().toString().isEmpty()) {
             edtTax.setError("Tax cannot be empty");
             isValid = false;
         } else {
             try {
                 int tax = Integer.parseInt(edtTax.getText().toString());
-                if (!((tax >= 0) && (tax <= 28))) {
+                if (!(tax >= 0 && tax <= 28)) {
                     edtTax.setError("Tax should be in the range of 0 to 28");
                     isValid = false;
                 }
             } catch (NumberFormatException e) {
-                edtTax.setError("Invalid amount");
+                edtTax.setError("Invalid tax amount");
                 isValid = false;
             }
         }
+
         return isValid;
     }
 

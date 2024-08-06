@@ -2,21 +2,28 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EasyBill" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.EasyBill" parent="Base.Theme.EasyBill" />
 
+    <!-- Custom style for round ImageView -->
     <style name="roundImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
 
+    <!-- Custom ThemeOverlay for MaterialAlertDialog -->
+    <style name="ThemeOverlay.MaterialComponents.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- Customize the background color and text color for the dialog -->
+        <item name="android:background">@color/Background</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="titleTextStyle">@style/CustomAlertDialogTitleText</item>
+    </style>
 
-        <style name="ThemeOverlay.MaterialComponents.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-            <item name="android:background">@color/ThemeColor</item>
-            <item name="android:textColorPrimary">@color/white</item>
-        </style>
+    <!-- Custom text style for the dialog title -->
+    <style name="CustomAlertDialogTitleText" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/black</item> <!-- Change this to your desired color -->
+    </style>
 
-
-    </resources>
+</resources>

@@ -36,9 +36,11 @@
         <EditText
             android:id="@+id/edtLoginEmail"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
             android:textColorHint="#61000000"
+
+            android:layout_height="40dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
             android:background="@color/white"
             android:hint="Email address"
             />
@@ -64,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:textColorHint="#61000000"
                 android:background="@color/white"
 
@@ -84,6 +87,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_below="@id/linePass"
+                android:textColor="@color/black"
                 android:textColorHint="#61000000"
                 android:background="@color/white"
                 android:hint="Confirm Password"

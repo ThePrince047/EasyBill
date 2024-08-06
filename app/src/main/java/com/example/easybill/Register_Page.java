@@ -2,8 +2,11 @@ package com.example.easybill;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,22 +22,33 @@ public class Register_Page extends AppCompatActivity {
     private Button btnRegister;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
+    private TextView lblLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.Background));
 
         edtEmail = findViewById(R.id.edtLoginEmail);
         edtPassword = findViewById(R.id.edtPass);
         edtConfirmPassword = findViewById(R.id.edtConfirmPass);
         btnRegister = findViewById(R.id.btnRegister);
+        lblLogin = findViewById(R.id.lblLogin);
 
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
         btnRegister.setOnClickListener(v -> registerUser());
+        lblLogin.setOnClickListener(v -> toLoginPage());
     }
+
+    private void toLoginPage() {
+        Intent intent = new Intent(getApplicationContext(),Login_Page.class);
+        startActivity(intent);
+    }
+
 
     private void registerUser() {
         String email = edtEmail.getText().toString().trim();

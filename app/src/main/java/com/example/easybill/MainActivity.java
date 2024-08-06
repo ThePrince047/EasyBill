@@ -45,8 +45,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ListView listView;
-    //List<Invoice> invoicesList;
-    //CardAdapter cardAdapter;
     TextView homeamt, Username, viewall;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
@@ -71,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fab = findViewById(R.id.fabButton);
         listView = findViewById(R.id.homeinvoicelist);
-        //invoicesList = new ArrayList<>();
-        //cardAdapter = new CardAdapter(this, invoicesList);
-        //listView.setAdapter(cardAdapter);
         homeamt = findViewById(R.id.homeamt);
         Username = findViewById(R.id.lblUser);
 
@@ -82,24 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 .document(currentUser.getUid())
                 .collection("invoices");
 
-        invoicesRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    Log.w("Firebase", "Listen failed.", error);
-                    return;
-                }
 
-                //invoicesList.clear();
-                if (value != null) {
-                    for (DocumentSnapshot doc : value) {
-                        //Invoice invoice = doc.toObject(Invoice.class);
-                        //invoicesList.add(invoice);
-                    }
-                }
-                //cardAdapter.notifyDataSetChanged();
-            }
-        });
 
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -178,12 +178,14 @@
             android:id="@+id/lblAlreadyHaveAcc"
             android:textColor="#C8000000"
             android:textStyle="bold"
+            android:textSize="15dp"
             android:text="Already have an account? "/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:id="@+id/lblLogin"
+            android:textSize="15dp"
             android:textStyle="bold"
             android:fontFamily="@font/helveticaneueroman"
             android:textColor="@color/ThemeColor"

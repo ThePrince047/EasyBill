@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,7 +41,8 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_gen_page);
-
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.Background));
         btnAddItem = findViewById(R.id.btnAddItems);
         btnSaveInvoice = findViewById(R.id.btnSave);
         btnCancelInvoice = findViewById(R.id.btnCancel);
@@ -115,10 +117,14 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = today.format(formatter);
 
-        // Create a map to hold all invoice items
+        // Create a map to hold all invoice items and totals
         Map<String, Object> invoiceData = new HashMap<>();
         invoiceData.put("invoiceId", invoiceId);
         invoiceData.put("date", formattedDate);  // Add date field
+
+        double totalAmt = 0;
+        double totalTax = 0;
+        double grandTotal = 0;
 
         // Add each invoice item to the map
         for (int i = 0; i < invoicesList.size(); i++) {
@@ -129,10 +135,28 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
             itemData.put("itemAmount", invoice.getItemAmount());
             itemData.put("itemTax", invoice.getItemTax());
 
+            // Calculate item totals
+            double amount = Double.parseDouble(invoice.getItemAmount());
+            int quantity = Integer.parseInt(invoice.getItemQuantity());
+            int taxSlab = Integer.parseInt(invoice.getItemTax());
+
+            double itemTotalWithTax = amount * quantity;
+            double taxAmount = itemTotalWithTax * (taxSlab / 100.0);
+            double itemTotalBeforeTax = itemTotalWithTax - taxAmount;
+
+            totalAmt += itemTotalBeforeTax;
+            totalTax += taxAmount;
+            grandTotal = totalAmt + totalTax;
+
             invoiceData.put("item" + i, itemData);  // Save each item under a unique key
         }
 
-        // Save the invoice with the items map
+        // Add subtotal, tax, and grand total to invoiceData
+        invoiceData.put("subtotal", totalAmt);
+        invoiceData.put("tax", totalTax);
+        invoiceData.put("grandTotal", grandTotal);
+
+        // Save the invoice with the items and totals map
         invoicesRef.document(String.valueOf(invoiceId))
                 .set(invoiceData)
                 .addOnSuccessListener(aVoid -> {
@@ -279,6 +303,7 @@ class CardAdapter1 extends ArrayAdapter<AddInvoice> {
     public double getGrandTotal() {
         return grandTotal;
     }
+
 }
 
 class AddInvoice implements Parcelable {

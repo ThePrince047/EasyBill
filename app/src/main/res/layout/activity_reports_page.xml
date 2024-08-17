@@ -5,16 +5,224 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reports_page">
-
+    tools:context=".reports_page"
+    android:background="@color/Background">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Reports"
-        android:layout_centerInParent="true"
-        android:textSize="40dp"
+        android:id="@+id/lblReports"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/helveticaneueblack"
+
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:textSize="20dp"
+        android:textColor="@color/black"
         />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/cardAllTimeEarnings"
+        app:cardBackgroundColor="@color/white"
+        android:layout_below="@id/lblReports"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <TextView
+                android:id="@+id/lblAllTimeEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/helveticaneueroman"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:background="@color/white"
+                android:text="All Time Earnings:"
+                />
+
+            <TextView
+                android:id="@+id/amtAllTimeEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/helveticaneueblack"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:text="₹ 0"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/cardThisYearEarnings"
+        app:cardBackgroundColor="@color/white"
+        android:layout_below="@id/cardAllTimeEarnings"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <TextView
+                android:id="@+id/lblThisYearEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:fontFamily="@font/helveticaneueroman"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:background="@color/white"
+                android:text="This Year's Earnings:"
+                />
+
+            <TextView
+                android:id="@+id/amtThisYearEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/helveticaneueblack"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:text="₹ 0"
+                />
+
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/cardThisMonthEarnings"
+        app:cardBackgroundColor="@color/white"
+        android:layout_below="@id/cardThisYearEarnings"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <TextView
+                android:id="@+id/lblThisMonthEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:fontFamily="@font/helveticaneueroman"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:background="@color/white"
+                android:text="This Month's Earnings:"
+                />
+            <TextView
+                android:id="@+id/amtThisMonthEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/helveticaneueblack"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:text="₹ 0"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/cardTodaysEarnings"
+        app:cardBackgroundColor="@color/white"
+        android:layout_below="@id/cardThisMonthEarnings"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <TextView
+                android:id="@+id/lblTodaysEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:fontFamily="@font/helveticaneueroman"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:background="@color/white"
+                android:text="Today's Earnings:"
+                />
+            <TextView
+                android:id="@+id/amtTodaysEarning"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/helveticaneueblack"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:text="₹ 0"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/cardTodaysEarnings"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_marginBottom="-17dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp">
+    <ListView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listMonthlyAddedInvoice"
+
+        />
+    </androidx.cardview.widget.CardView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -27,14 +235,23 @@
         app:itemTextColor="@color/bottom_nav_colir"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/botton_nav_items"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabButton"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_navigation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-30dp"
+            android:backgroundTint="@color/ThemeColor"
+            android:src="@drawable/baseline_add_24" />
+
+    </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/ThemeColor"
-        android:src="@drawable/baseline_add_24"
-        android:layout_above="@id/bottom_navigation"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-30dp"
-        app:maxImageSize="40dp" />
+        android:indeterminate="true"
+        android:indeterminateTint="@color/ThemeColor"
+        android:layout_centerInParent="true"
+        app:layout_constraintTop_toTopOf="parent" />
 </RelativeLayout>

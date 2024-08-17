@@ -24,7 +24,6 @@ public class Invoice_Dailog {
         EditText edtTax = dialogView.findViewById(R.id.editDialogTax);
 
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context, R.style.ThemeOverlay_MaterialComponents_Dialog)
-                .setTitle("Add Item")
                 .setView(dialogView)
                 .setPositiveButton("Add", null)
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());

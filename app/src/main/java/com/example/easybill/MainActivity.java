@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +40,20 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     ListView listView;
+    ImageButton icnSetting, icnNotification;
     TextView homeamt, Username, viewall;
+    ProgressBar progressBar;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private List<Invoice> invoiceList = new ArrayList<>();
     private InvoiceAdapter invoiceAdapter;
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         homeamt = findViewById(R.id.homeamt);
         Username = findViewById(R.id.lblUser);
         viewall = findViewById(R.id.viewAllButton);
+        icnNotification = findViewById(R.id.icnNotification);
+        icnSetting = findViewById(R.id.icnSetting);
+        progressBar = findViewById(R.id.progressBar);
+
+        icnNotification.setOnClickListener(v -> displayNotification());
+        icnSetting.setOnClickListener(v -> displaySetting());
 
         invoiceAdapter = new InvoiceAdapter(this, invoiceList);
         listView.setAdapter(invoiceAdapter);
@@ -79,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "This Page is Running", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (itemId == R.id.nav_reports) {
-                    startActivity(new Intent(getApplicationContext(), reports_page.class));
+                    Intent intent = new Intent(getApplicationContext(), reports_page.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
                 }
@@ -87,25 +105,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), invoice_gen_page.class));
-                overridePendingTransition(0, 0);
-            }
+        fab.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), invoice_gen_page.class));
+            overridePendingTransition(0, 0);
         });
 
-        viewall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), reports_page.class));
-                overridePendingTransition(0, 0);
-            }
+        viewall.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), reports_page.class));
+            overridePendingTransition(0, 0);
         });
+    }
+
+    private void displaySetting() {
+        Toast.makeText(getApplicationContext(), "Work in progress", Toast.LENGTH_LONG).show();
+    }
+
+    private void displayNotification() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth
+        mAuth.signOut();
+        startActivity(new Intent(getApplicationContext(), Login_Page.class));
+        finish();
     }
 
     // Fetches the company name from Firestore and sets it to the Username TextView
     void displayUsername() {
+        // Show the progress bar
+        progressBar.setVisibility(View.VISIBLE);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("EasyBill")
                 .document(currentUser.getUid())
@@ -115,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        // Hide the progress bar
+                        progressBar.setVisibility(View.GONE);
+
                         if (documentSnapshot.exists()) {
                             String companyName = documentSnapshot.getString("companyName");
                             if (companyName != null) {
@@ -131,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        // Hide the progress bar
+                        progressBar.setVisibility(View.GONE);
+
                         Toast.makeText(MainActivity.this, "Error fetching company info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -142,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         CollectionReference invoicesRef = db.collection("EasyBill")
                 .document(currentUser.getUid())
                 .collection("invoices");
-
 
         // Query to fetch and sort invoices by invoiceId (latest first)
         Query sortedInvoicesQuery = invoicesRef.orderBy("invoiceId", Query.Direction.DESCENDING).limit(10);
@@ -173,8 +204,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
     // Calculates today's total revenue by summing up the grandTotal of all invoices from today
     void calculateTodayRevenue() {
@@ -213,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 }
+
 
 
 class InvoiceAdapter extends ArrayAdapter<Invoice> {

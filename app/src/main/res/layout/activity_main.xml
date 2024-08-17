@@ -1,120 +1,162 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/Background">
+    android:background="@color/Background"
+    tools:context=".MainActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <View
+            android:id="@+id/homeview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/ThemeColor"
-            android:id="@+id/homeview"/>
+            android:background="@color/ThemeColor" />
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardHomeScreen"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            app:cardCornerRadius="15dp"
-            android:id="@+id/cardHomeScreen"
-            app:cardBackgroundColor="@color/white"
-            android:layout_marginTop="110dp"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp">
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="15dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/homeamt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_below="@id/lblTodayRev"
+                    android:layout_marginStart="20dp"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:text="₹ Loading.."
                     android:textColor="@color/black"
                     android:textSize="30dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
+
                 <TextView
+                    android:id="@+id/lblTodayRev"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:id="@+id/lblTodayRev"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/helveticaneueroman"
                     android:text="Today's Revenue"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
                 <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/lineTodaysRev"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    app:dividerColor="#57808080"
+                    android:layout_below="@+id/homeamt"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="35dp"
-                    />
+                    app:dividerColor="#57808080" />
+
+                <TextView
+                    android:id="@+id/lblManageInvoices"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_below="@id/lineTodaysRev"
+                    android:drawableEnd="@drawable/baseline_manage_history_24"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="13dp"
+                    android:paddingEnd="10dp"
+                    android:text="Manage Invoices"
+                    android:textColor="@color/black" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            app:cardBackgroundColor="#1834D1"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="10dp"
-            app:cardElevation="20dp"
-
-            app:cardCornerRadius="15dp"
-            >
-            <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-                >
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            app:cardBackgroundColor="@color/ThemeColor"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardImg"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="25dp">
+
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:src="@drawable/baseline_person_24" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/lblHello"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginStart="65dp"
-
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/cardImg"
                     android:fontFamily="@font/helveticaneueroman"
                     android:text="Hello,"
                     android:textColor="@color/white" />
+
                 <TextView
+                    android:id="@+id/lblUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
                     android:layout_below="@id/lblHello"
+                    android:layout_marginStart="5dp"
+                    android:layout_toRightOf="@id/cardImg"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:id="@+id/lblUser"
-                    android:layout_marginStart="65dp"
-                    android:layout_marginEnd="10dp"
-
+                    android:textColor="@color/white"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-            </RelativeLayout>
+                    android:textStyle="bold" />
 
+                <ImageButton
+                    android:id="@+id/icnSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/ThemeColor"
+                    android:src="@drawable/baseline_settings_24" />
+
+                <ImageButton
+                    android:id="@+id/icnNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_toStartOf="@id/icnSetting"
+                    android:background="@color/ThemeColor"
+                    android:src="@drawable/baseline_logout_24" />
+
+
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -126,7 +168,7 @@
             android:fontFamily="@font/helveticaneueroman"
             android:text="Recent Invoices"
             android:textColor="@color/black"
-            android:textSize="18dp"/>
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/viewAllButton"
@@ -137,58 +179,67 @@
             android:layout_marginStart="257dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="@font/helveticaneueroman"
             android:text="View All"
             android:textColor="@color/black"
-            android:clickable="true"
-            android:focusable="true"
-            android:textSize="18dp"/>
+            android:textSize="15dp" />
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardHomeList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cardHomeScreen"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="10dp"
-            app:cardCornerRadius="20dp"
-            android:id="@+id/cardHomeList"
-            android:layout_marginRight="10dp"
             android:layout_above="@id/bottom_navigation"
-            android:backgroundTint="@color/white"
+            android:layout_below="@id/cardHomeScreen"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="-16dp"
-            >
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="20dp">
+
             <ListView
-
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/homeinvoicelist"
-
-            />
+                android:id="@+id/homeinvoicelist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp" />
         </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:elevation="10dp"
-                android:background="#E9E9E9"
-                app:itemActiveIndicatorStyle="@color/bottom_nav_colir"
-                app:itemIconTint="@color/bottom_nav_colir"
-                android:layout_alignParentBottom="true"
-                app:itemTextColor="@color/bottom_nav_colir"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/botton_nav_items"/>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9"
+            android:elevation="10dp"
+            app:itemActiveIndicatorStyle="@color/bottom_nav_colir"
+            app:itemIconTint="@color/bottom_nav_colir"
+            app:itemTextColor="@color/bottom_nav_colir"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/botton_nav_items" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/ThemeColor"
-            android:src="@drawable/baseline_add_24"
             android:layout_above="@id/bottom_navigation"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="-30dp"
-            app:maxImageSize="40dp" />
+            android:backgroundTint="@color/ThemeColor"
+            android:src="@drawable/baseline_add_24" />
+
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/ThemeColor"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

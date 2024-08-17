@@ -6,8 +6,8 @@
 
     <style name="Theme.EasyBill" parent="Base.Theme.EasyBill" />
 
-    <!-- Custom style for round ImageView -->
-    <style name="roundImageView" parent="">
+    <!-- Custom style for rounded ImageView -->
+    <style name="roundImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
@@ -16,8 +16,9 @@
     <style name="ThemeOverlay.MaterialComponents.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <!-- Customize the background color and text color for the dialog -->
         <item name="android:background">@color/Background</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/black</item>
+        <!-- Set the custom title text style -->
         <item name="titleTextStyle">@style/CustomAlertDialogTitleText</item>
     </style>
 
@@ -26,4 +27,13 @@
         <item name="android:textColor">@color/black</item> <!-- Change this to your desired color -->
     </style>
 
+    <!-- Custom AlertDialog Theme -->
+    <style name="CustomAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+    </style>
+
+    <!-- Custom AlertDialog Style -->
+    <style name="CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">#000000</item> <!-- This sets the title color to black -->
+    </style>
 </resources>

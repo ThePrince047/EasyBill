@@ -6,13 +6,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen">
+    tools:context=".SplashScreen"
+    android:background="@color/white">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/icon"
+        android:background="#0079FE"
+        android:src="@drawable/appicn"
         app:shapeAppearance="@style/roundImageView"
         android:layout_centerInParent="true"
         />

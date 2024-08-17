@@ -25,14 +25,9 @@ public class SplashScreen extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
+        }); 
         Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.ThemeColor));
-
-        // Apply fade-in animation to the ShapeableImageView
-        ImageView imageView = findViewById(R.id.logo);
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
-        imageView.startAnimation(fadeIn);
+        window.setStatusBarColor(getResources().getColor(R.color.white));
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -40,6 +35,6 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Login_Page.class));
                 finish();
             }
-        }, 2500);
+        }, 1500);
     }
 }

@@ -3,5 +3,17 @@
     <style name="Base.Theme.EasyBill" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
     </style>
+
+        <!-- Custom AlertDialog Theme -->
+        <style name="CustomAlertDialogThemeBlack" parent="ThemeOverlay.MaterialComponents.Dialog">
+            <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+        </style>
+
+        <!-- Custom AlertDialog Style -->
+        <style name="CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+            <item name="colorPrimary">#000000</item> <!-- This sets the title color to black -->
+        </style>
+
 </resources>

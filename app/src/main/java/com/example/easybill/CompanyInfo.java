@@ -24,6 +24,12 @@ public class CompanyInfo extends AppCompatActivity {
     private FirebaseUser currentUser;
 
     @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),Login_Page.class));
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_info);

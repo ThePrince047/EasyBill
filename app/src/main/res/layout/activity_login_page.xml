@@ -53,7 +53,7 @@
                 android:textColorHint="#61000000"
                 android:background="@color/white"
                 android:hint="Email address"
-                />
+            />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
@@ -76,7 +76,7 @@
                 android:id="@+id/edtLoginPass"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                   android:textColor="@color/black"
+                android:textColor="@color/black"
                 android:hint="Password"
                 android:layout_marginStart="10dp"
                 android:background="@color/white"
@@ -171,17 +171,20 @@
             android:id="@+id/lblDonthaveacc"
             android:textColor="#C8000000"
             android:textStyle="bold"
-            android:text="Don't have an account? "/>
+            android:textSize="13dp"
+            android:text="Don't have an account?"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/lblRegister"
+            android:gravity="center"
             android:textStyle="bold"
             android:fontFamily="@font/helveticaneueroman"
+            android:textSize="13dp"
             android:textColor="@color/ThemeColor"
             android:layout_toRightOf="@id/lblDonthaveacc"
-            android:text="Register"/>
+            android:text=" Register   "/>
     </LinearLayout>
 
 </RelativeLayout>

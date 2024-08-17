@@ -4,52 +4,94 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="#f5f5f5">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:id="@+id/relativeLayout"
         android:background="@android:color/white"
         android:elevation="2dp">
+
+
 
         <!-- Company Information -->
         <TextView
             android:id="@+id/companyName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your Company Name"
             android:textSize="20sp"
+            android:gravity="center"
             android:textStyle="bold"
-            android:paddingBottom="8dp"/>
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueblack"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:id="@+id/dvBelowCompanyname"
+            android:layout_below="@id/companyName"/>
 
         <TextView
             android:id="@+id/companyAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Address Line 1\nAddress Line 2\nCity, State, Zip Code"
-            android:layout_below="@id/companyName"
-            android:paddingBottom="8dp"/>
+            android:layout_below="@id/dvBelowCompanyname"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:id="@+id/dvBelowCompanyAddress"
+            android:layout_below="@id/companyAddress"/>
 
         <TextView
             android:id="@+id/companyPhoneEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Phone: (123) 456-7890\nEmail: info@company.com"
             android:layout_below="@id/companyAddress"
-            android:paddingBottom="16dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/companyPhoneEmail"/>
+
+
+
 
         <!-- Invoice Title and Date -->
         <TextView
             android:id="@+id/invoiceTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="INVOICE"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_below="@id/companyPhoneEmail"
             android:gravity="center"
-            android:paddingBottom="16dp"
-            android:textColor="@android:color/holo_blue_dark"/>
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:fontFamily="@font/helveticaneueblack"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/invoiceTitle"/>
+
 
         <TextView
             android:id="@+id/invoiceNumber"
@@ -58,7 +100,9 @@
             android:text="Invoice #: 12345"
             android:layout_below="@id/invoiceTitle"
             android:layout_alignParentStart="true"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/invoiceDate"
@@ -67,7 +111,9 @@
             android:text="Date: 01/01/2024"
             android:layout_below="@id/invoiceTitle"
             android:layout_alignParentEnd="true"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <!-- Customer Information -->
         <TextView
@@ -77,7 +123,9 @@
             android:text="Bill To:"
             android:textStyle="bold"
             android:layout_below="@id/invoiceNumber"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/customerName"
@@ -85,7 +133,9 @@
             android:layout_height="wrap_content"
             android:text="Customer Name"
             android:layout_below="@id/billToLabel"
-            android:paddingBottom="4dp"/>
+            android:paddingBottom="4dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/customerAddress"
@@ -93,7 +143,9 @@
             android:layout_height="wrap_content"
             android:text=""
             android:layout_below="@id/customerName"
-            android:paddingBottom="1dp"/>
+            android:paddingBottom="1dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <!-- Itemized List -->
         <LinearLayout
@@ -114,29 +166,40 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Description"
-                    android:textStyle="bold"/>
+                    android:text="   Description"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helveticaneueroman"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Quantity"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helveticaneueroman"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Price"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helveticaneueroman"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Total"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/helveticaneueroman"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -149,7 +212,9 @@
             android:textStyle="bold"
             android:layout_below="@id/itemContainer"
             android:layout_alignParentStart="true"
-            android:paddingTop="16dp"/>
+            android:paddingTop="16dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/subTotalValue"
@@ -158,7 +223,9 @@
             android:text="$0.00"
             android:layout_below="@id/itemContainer"
             android:layout_alignParentEnd="true"
-            android:paddingTop="16dp"/>
+            android:paddingTop="16dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/taxLabel"
@@ -168,7 +235,9 @@
             android:textStyle="bold"
             android:layout_below="@id/subTotalLabel"
             android:layout_alignParentStart="true"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/taxValue"
@@ -177,7 +246,9 @@
             android:text="$0.00"
             android:layout_below="@id/subTotalValue"
             android:layout_alignParentEnd="true"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
         <TextView
             android:id="@+id/totalLabel"
@@ -187,7 +258,9 @@
             android:textStyle="bold"
             android:layout_below="@id/taxLabel"
             android:layout_alignParentStart="true"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueblack"/>
 
         <TextView
             android:id="@+id/totalValue"
@@ -196,7 +269,53 @@
             android:text="$0.00"
             android:layout_below="@id/taxValue"
             android:layout_alignParentEnd="true"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueblack"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/totalLabel"
+            android:layout_centerHorizontal="true"
+            android:textColor="#BDC4C8"
+            android:layout_marginTop="20dp"
+            android:text="Made with DigiBill"
+            />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        >
+
+
+
+        <ImageView
+            android:layout_width="1042px"
+            android:layout_height="1042px"
+            android:background="@color/white"
+            android:id="@+id/imgQr"
+            android:layout_centerInParent="true"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/ThemeColor"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
 </ScrollView>

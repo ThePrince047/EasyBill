@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,12 @@ public class Register_Page extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
     private TextView lblLogin;
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),Login_Page.class));
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

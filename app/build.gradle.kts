@@ -43,8 +43,12 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
+    implementation("com.google.zxing:core:3.5.2")
+    // Optional: For Android-specific support, use this
+    implementation("com.google.zxing:android-core:3.3.0")
     androidTestImplementation(libs.espresso.core)
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation(platform("com.afollestad.material-dialogs:core:3.3.0"))

@@ -1,63 +1,162 @@
 package com.example.easybill;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.common.BitMatrix;
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Map;
 
 public class Demo extends AppCompatActivity {
 
     private LinearLayout itemContainer;
-    private TextView subTotalValue, taxValue, totalValue,date;
+    private TextView subTotalValue, taxValue, totalValue, date;
+    private TextView companyName, companyAddress, companyPhoneEmail,invoiceIdNo;
+    private FirebaseFirestore db;
+    private FirebaseUser currentUser;
+    private FirebaseStorage storage;
+    private String invoiceId; // Changed from final to non-final
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
+        // Initialize Firestore and Firebase Storage
+        db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Retrieve the intent that started this activity
+        Intent intent = getIntent();
+        invoiceId = intent.getStringExtra("nextInvoiceId");
+
+        // Initialize the views
         itemContainer = findViewById(R.id.itemContainer);
         subTotalValue = findViewById(R.id.subTotalValue);
         taxValue = findViewById(R.id.taxValue);
         totalValue = findViewById(R.id.totalValue);
         date = findViewById(R.id.invoiceDate);
+        companyName = findViewById(R.id.companyName);
+        companyAddress = findViewById(R.id.companyAddress);
+        companyPhoneEmail = findViewById(R.id.companyPhoneEmail);
 
-
-// Get today's date
+        // Get today's date
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(calendar.getTime());
 
-// Set today's date to the TextView
+        // Set today's date to the TextView
         date.setText("Date: " + formattedDate);
 
-
-        // Retrieve the list of invoices from the Intent
-        ArrayList<AddInvoice> invoiceList = getIntent().getParcelableArrayListExtra("invoice_list");
-
-        // Retrieve subtotal, tax, and grand total from the Intent
-        double subtotal = getIntent().getDoubleExtra("subtotal", 0.0);
-        double tax = getIntent().getDoubleExtra("tax", 0.0);
-        double grandTotal = getIntent().getDoubleExtra("grandTotal", 0.0);
-
-        if (invoiceList != null) {
-            // Iterate over the list and add each item to the view
-            for (AddInvoice invoice : invoiceList) {
-                addItem(invoice.getItemName(), Integer.parseInt(invoice.getItemQuantity()), Double.parseDouble(invoice.getItemAmount()));
-            }
+        // Check if invoiceId is null
+        if (invoiceId != null) {
+            // Fetch invoice data from Firestore
+            fetchInvoiceData();
+        } else {
+            Toast.makeText(this, "No invoice ID provided", Toast.LENGTH_SHORT).show();
         }
-
-        // Set the values to TextViews
-        subTotalValue.setText(String.format("₹ %.2f", subtotal));
-        taxValue.setText(String.format("₹ %.2f", tax));
-        totalValue.setText(String.format("₹ %.2f", grandTotal));
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        super.onBackPressed();
+    }
+
+    private void fetchInvoiceData() {
+        db.collection("EasyBill")
+                .document(currentUser.getUid())
+                .collection("invoices")
+                .document(String.valueOf(invoiceId))
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // Extract basic fields
+                            String date1 = document.getString("date");
+                            Double grandTotal = document.getDouble("grandTotal");
+                            Double subtotal = document.getDouble("subtotal");
+                            Double tax = document.getDouble("tax");
+
+                            // Ensure that these fields are not null
+                            String displayDate = (date != null) ? date1 : "No date provided";
+                            double grandTotalValue = (grandTotal != null) ? grandTotal : 0.0;
+                            double subtotalValue = (subtotal != null) ? subtotal : 0.0;
+                            double taxValue1 = (tax != null) ? tax : 0.0;
+
+                            // Set the basic fields
+                            date.setText("Date: " + displayDate);
+                            subTotalValue.setText(String.format("₹ %.2f", subtotalValue));
+                            taxValue.setText(String.format("₹ %.2f", taxValue1));
+                            totalValue.setText(String.format("₹ %.2f", grandTotalValue));
+
+                            // Process items
+                            for (int i = 0; i < 100; i++) {  // Assuming a maximum of 100 items
+                                Map<String, Object> itemMap = (Map<String, Object>) document.get("item" + i);
+                                if (itemMap == null) break;
+
+                                String itemName = (String) itemMap.get("itemName");
+                                String itemQuantity = (String) itemMap.get("itemQuantity");
+                                String itemAmount = (String) itemMap.get("itemAmount");
+                                String itemTax = (String) itemMap.get("itemTax");
+
+                                // Default values if any field is missing
+                                itemName = (itemName != null) ? itemName : "No name provided";
+                                itemQuantity = (itemQuantity != null) ? itemQuantity : "0";
+                                itemAmount = (itemAmount != null) ? itemAmount : "0";
+                                itemTax = (itemTax != null) ? itemTax : "0";
+
+                                // Convert strings to numerical values
+                                int quantity = Integer.parseInt(itemQuantity);
+                                double amount = Double.parseDouble(itemAmount);
+                                double taxAmount = Double.parseDouble(itemTax);
+
+                                // Add item to the view
+                                addItem(itemName, quantity, amount);
+                            }
+
+                            // Fetch and set company info
+                            fetchCompanyInfo();
+                        } else {
+                            Toast.makeText(Demo.this, "No such invoice", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(Demo.this, "Error getting invoice data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+
 
     private void addItem(String description, int quantity, double price) {
         double total = quantity * price;
@@ -68,26 +167,31 @@ public class Demo extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
         itemRow.setOrientation(LinearLayout.HORIZONTAL);
+        invoiceIdNo = findViewById(R.id.invoiceNumber);
+        invoiceIdNo.setText("Invoice ID : INV#"+invoiceId);
 
         TextView descriptionView = new TextView(this);
         descriptionView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2));
         descriptionView.setText(description);
+        descriptionView.setTextColor(Color.BLACK);
 
         TextView quantityView = new TextView(this);
-        quantityView.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1
-        ));
+        quantityView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         quantityView.setText(String.valueOf(quantity));
+        quantityView.setTextColor(Color.BLACK);
+        quantityView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         TextView priceView = new TextView(this);
         priceView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         priceView.setText(String.format("₹ %.2f", price));
+        priceView.setTextColor(Color.BLACK);
+        priceView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         TextView totalView = new TextView(this);
         totalView.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         totalView.setText(String.format("₹ %.2f", total));
+        totalView.setTextColor(Color.BLACK);
+        totalView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         itemRow.addView(descriptionView);
         itemRow.addView(quantityView);
@@ -95,5 +199,105 @@ public class Demo extends AppCompatActivity {
         itemRow.addView(totalView);
 
         itemContainer.addView(itemRow);
+    }
+
+    private void fetchCompanyInfo() {
+        db.collection("EasyBill")
+                .document(currentUser.getUid())
+                .collection("company_info")
+                .document(currentUser.getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String name = document.getString("companyName");
+                            String address1 = document.getString("address1");
+                            String address2 = document.getString("address2");
+                            String city = document.getString("city");
+                            String state = document.getString("state");
+                            String postalCode = document.getString("postalCode");
+                            String phoneNumber = document.getString("phoneNumber");
+                            String email = document.getString("email");
+
+                            // Set data to the TextViews
+                            companyName.setText(name);
+                            companyAddress.setText(address1 + ",\n" + address2 + ",\n" + city + ", " + state + ", " + postalCode);
+                            companyPhoneEmail.setText("Phone: " + phoneNumber + "\nEmail: " + email );
+
+                            // Capture and upload snapshot after setting company info
+                            captureAndUploadSnapshot();
+                        } else {
+                            // Handle case where document doesn't exist
+                        }
+                    } else {
+                        // Handle errors
+                    }
+                });
+    }
+
+    private void captureAndUploadSnapshot() {
+        // Capture the RelativeLayout as a bitmap
+        RelativeLayout relativeLayout = findViewById(R.id.relativeLayout); // Adjust the ID as needed
+        Bitmap bitmap = captureView(relativeLayout);
+        byte[] data = bitmapToByteArray(bitmap);
+
+        // Upload to Firebase Storage
+        String fileName = invoiceId + ".png";
+        uploadToFirebaseStorage(data, fileName);
+    }
+
+    private void uploadToFirebaseStorage(byte[] data, String fileName) {
+        StorageReference storageRef = storage.getReference();
+        StorageReference imageRef = storageRef.child(fileName);
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String downloadUrl = uri.toString();
+                // Generate QR code from the download URL and set to ImageView
+                Bitmap qrCodeBitmap = generateQRCode(downloadUrl);
+                ImageView qrCodeImageView = findViewById(R.id.imgQr);
+                progressBar.setVisibility(View.GONE);
+                qrCodeImageView.setImageBitmap(qrCodeBitmap);
+
+
+                // Optionally, display the URL in a Toast
+            });
+        }).addOnFailureListener(exception -> {
+            Toast.makeText(Demo.this, "Upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private Bitmap captureView(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
+
+    private byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    private Bitmap generateQRCode(String content) {
+        QRCodeWriter writer = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 1024, 1024);
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+            return bitmap;
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

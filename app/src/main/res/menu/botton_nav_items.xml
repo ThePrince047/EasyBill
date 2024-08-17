@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/baseline_account_balance_24"
+        android:icon="@drawable/baseline_home_24"
         android:title="Home"
         android:iconTint="@color/black"
         />
@@ -15,7 +15,7 @@
     <item
         android:id="@+id/nav_reports"
         android:iconTint="@color/black"
-        android:icon="@drawable/baseline_account_balance_wallet_24"
+        android:icon="@drawable/baseline_bar_chart_24"
         android:title="Reports" />
 
 </menu>

@@ -37,7 +37,6 @@
             android:id="@+id/edtLoginEmail"
             android:layout_width="match_parent"
             android:textColorHint="#61000000"
-
             android:layout_height="40dp"
             android:textColor="@color/black"
             android:layout_marginStart="10dp"
@@ -178,18 +177,19 @@
             android:id="@+id/lblAlreadyHaveAcc"
             android:textColor="#C8000000"
             android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="Already have an account? "/>
+            android:textSize="13dp"
+            android:text="Already have an account?"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/lblLogin"
-            android:textSize="15dp"
+            android:gravity="center"
+            android:textSize="13dp"
             android:textStyle="bold"
             android:fontFamily="@font/helveticaneueroman"
             android:textColor="@color/ThemeColor"
             android:layout_toRightOf="@id/lblDonthaveacc"
-            android:text="Login"/>
+            android:text=" Login   "/>
     </LinearLayout>
 </RelativeLayout>

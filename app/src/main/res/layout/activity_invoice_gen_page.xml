@@ -43,14 +43,12 @@
         android:fontFamily="@font/helveticaneueroman"
         android:layout_above="@id/cardOfListView"
         android:layout_marginStart="20dp"
-
         android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp"
         android:text="ITEMS"
         android:textColor="#808080"
         android:textSize="10dp"
         android:textStyle="bold" />
-
 
 
     <androidx.cardview.widget.CardView
@@ -127,7 +125,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/viewTotal"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="-12dp"
         android:layout_alignParentBottom="true"
         android:backgroundTint="@color/white"

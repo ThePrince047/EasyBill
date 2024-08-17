@@ -2,57 +2,97 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/Background"
-    android:padding="16dp">
+    android:padding="15dp">
 
-        <EditText
-            android:id="@+id/editDialogItemName"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:background="@drawable/border"
-            android:padding="15dp"
-            android:hint="Item Name"
-            />
+            android:layout_height="match_parent"
+            >
 
-        <EditText
-            android:id="@+id/editDialogQuantity"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:background="@drawable/border"
-            android:layout_marginTop="10dp"
-            android:padding="15dp"
-            android:hint="Quantity"
-            android:inputType="number"
-            android:layout_below="@id/editDialogItemName"
-            />
+            <EditText
+                android:id="@+id/editDialogItemName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:background="@drawable/border"
+                android:padding="15dp"
+                android:hint="Item Name"
+                />
 
-        <EditText
-            android:id="@+id/editDialogAmount"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:background="@drawable/border"
-            android:layout_marginTop="10dp"
-            android:padding="15dp"
-            android:hint="Amount"
-            android:inputType="numberDecimal"
-            android:layout_below="@id/editDialogQuantity" />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/lineItemName"
+                app:dividerColor="#57808080"
+                android:layout_below="@id/editDialogItemName"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-    <EditText
-        android:id="@+id/editDialogTax"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:background="@drawable/border"
-        android:layout_marginTop="10dp"
-        android:padding="15dp"
-        android:hint="Tax"
-        android:inputType="numberDecimal"
-        android:layout_below="@id/editDialogAmount" />
+            <EditText
+                android:id="@+id/editDialogQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:background="@drawable/border"
+                android:padding="15dp"
+                android:hint="Quantity"
+                android:inputType="number"
+                android:layout_below="@id/lineItemName"
+                />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:dividerColor="#57808080"
+                android:id="@+id/lineItemQuantity"
+                android:layout_below="@id/editDialogQuantity"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+            <EditText
+                android:id="@+id/editDialogAmount"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:background="@drawable/border"
+                android:padding="15dp"
+                android:hint="Amount"
+                android:inputType="numberDecimal"
+                android:layout_below="@id/lineItemQuantity" />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:dividerColor="#57808080"
+                android:id="@+id/lineItemAmount"
+                android:layout_below="@id/editDialogAmount"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/editDialogTax"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:background="@drawable/border"
+                android:padding="15dp"
+                android:hint="Tax"
+                android:inputType="numberDecimal"
+                android:layout_below="@id/lineItemAmount"
+                />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
     </RelativeLayout>

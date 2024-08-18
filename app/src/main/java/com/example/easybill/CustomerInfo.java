@@ -17,15 +17,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompanyInfo extends AppCompatActivity {
+public class CustomerInfo extends AppCompatActivity {
 
-    private EditText edtCompanyName, edtEmail, edtNumber, edtAdd1, edtAdd2, edtCity, edtState, edtPin;
+    private EditText edtCustomerName, edtEmail, edtNumber, edtAdd1, edtAdd2, edtCity, edtState, edtPin;
     private FirebaseFirestore firestore;
     private FirebaseUser currentUser;
 
+
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),Login_Page.class));
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
         super.onBackPressed();
     }
 
@@ -40,7 +41,7 @@ public class CompanyInfo extends AppCompatActivity {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Initialize EditText fields
-        edtCompanyName = findViewById(R.id.edtLoginEmail);
+        edtCustomerName = findViewById(R.id.edtLoginEmail);
         edtEmail = findViewById(R.id.edtEmail);
         edtNumber = findViewById(R.id.edtNumber);
         edtAdd1 = findViewById(R.id.edtAdd1);
@@ -54,8 +55,11 @@ public class CompanyInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validateFields()) {
-                    saveCompanyInfo();
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    saveinvoiceData();
+                    Intent get = getIntent();
+                    String nextInvoiceId = get.getStringExtra("nextInvoiceId");
+                    Intent intent = new Intent(getApplicationContext(),Demo.class);
+                    intent.putExtra("nextInvoiceId",String.valueOf(nextInvoiceId));
                     startActivity(intent);
                 }
             }
@@ -63,56 +67,22 @@ public class CompanyInfo extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        String companyName = edtCompanyName.getText().toString().trim();
-        String email = edtEmail.getText().toString().trim();
-        String phoneNumber = edtNumber.getText().toString().trim();
-        String address1 = edtAdd1.getText().toString().trim();
-        String address2 = edtAdd2.getText().toString().trim();
-        String city = edtCity.getText().toString().trim();
-        String state = edtState.getText().toString().trim();
-        String postalCode = edtPin.getText().toString().trim();
+        String customerName = edtCustomerName.getText().toString().trim();
 
-        if (companyName.isEmpty()) {
-            edtCompanyName.setError("Company name is required");
+        if (customerName.isEmpty()) {
+            edtCustomerName.setError("Company name is required");
             return false;
         }
-
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Valid email address is required");
-            return false;
-        }
-
-        if (phoneNumber.isEmpty() || phoneNumber.length() < 10) {
-            edtNumber.setError("Phone number must be at least 10 digits");
-            return false;
-        }
-
-        if (address1.isEmpty()) {
-            edtAdd1.setError("Address line 1 is required");
-            return false;
-        }
-
-        if (city.isEmpty()) {
-            edtCity.setError("City is required");
-            return false;
-        }
-
-        if (state.isEmpty()) {
-            edtState.setError("State is required");
-            return false;
-        }
-
-        if (postalCode.isEmpty() || postalCode.length() < 5) {
-            edtPin.setError("Postal code must be at least 5 digits");
-            return false;
-        }
-
         return true;
     }
 
-    private void saveCompanyInfo() {
+    private void saveinvoiceData() {
         // Retrieve text from EditText fields
-        String companyName = edtCompanyName.getText().toString().trim();
+        Intent intent = getIntent();
+        Map<String, Object> invoiceData = (Map<String, Object>) intent.getSerializableExtra("invoiceData");
+        String nextInvoiceId = intent.getStringExtra("nextInvoiceId");
+        
+        String customerName = edtCustomerName.getText().toString().trim();
         String email = edtEmail.getText().toString().trim();
         String phoneNumber = edtNumber.getText().toString().trim();
         String address1 = edtAdd1.getText().toString().trim();
@@ -120,26 +90,24 @@ public class CompanyInfo extends AppCompatActivity {
         String city = edtCity.getText().toString().trim();
         String state = edtState.getText().toString().trim();
         String postalCode = edtPin.getText().toString().trim();
-
-        // Create a map to hold the data
-        Map<String, Object> companyInfo = new HashMap<>();
-        companyInfo.put("companyName", companyName);
-        companyInfo.put("email", email);
-        companyInfo.put("phoneNumber", phoneNumber);
-        companyInfo.put("address1", address1);
-        companyInfo.put("address2", address2);
-        companyInfo.put("city", city);
-        companyInfo.put("state", state);
-        companyInfo.put("postalCode", postalCode);
+        
+        invoiceData.put("customerName", customerName);
+        invoiceData.put("email", email);
+        invoiceData.put("phoneNumber", phoneNumber);
+        invoiceData.put("address1", address1);
+        invoiceData.put("address2", address2);
+        invoiceData.put("city", city);
+        invoiceData.put("state", state);
+        invoiceData.put("postalCode", postalCode);
 
         // Create a DocumentReference to the specific path
         DocumentReference docRef = firestore.collection("EasyBill")
                 .document(currentUser.getUid()) // Replace with actual user ID
-                .collection("company_info")
-                .document(currentUser.getUid()); // Replace with actual document ID or generate a unique ID
+                .collection("invoices")
+                .document(nextInvoiceId); // Replace with actual document ID or generate a unique ID
 
         // Set the document with the data
-        docRef.set(companyInfo)
+        docRef.set(invoiceData)
                 .addOnSuccessListener(aVoid -> {
                     // Success
                     Toast.makeText(getApplicationContext(),"Company info successfully saved!",Toast.LENGTH_LONG).show();

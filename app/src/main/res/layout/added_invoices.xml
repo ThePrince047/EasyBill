@@ -24,14 +24,14 @@
         />
 
         <TextView
-            android:id="@+id/tvAddedQuantity"
+            android:id="@+id/tvCustomerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/helveticaneueroman"
             android:layout_below="@+id/tvInvoiceNumber"
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
-            android:text="Company Name"
+            android:text="Customer Name"
             android:textColor="#808080"
             android:textSize="12dp"
 
@@ -41,11 +41,11 @@
         <TextView
             android:id="@+id/tvGrandTotal"
             android:layout_width="wrap_content"
-            android:fontFamily="@font/helveticaneueroman"
+            android:fontFamily="@font/helveticaneueblack"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="30dp"
+            android:layout_below="@id/tvStatusPaid"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="18dp"
             android:text="TextView"
             android:textColor="@color/black"
@@ -58,12 +58,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="22dp"
             android:text="Paid"
             android:textColor="#8BC34A"
             android:textSize="13dp"
-            android:fontFamily="@font/helveticaneueroman"
             android:textStyle="bold"
         />
 

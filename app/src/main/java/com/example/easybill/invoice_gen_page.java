@@ -102,26 +102,20 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
                         DocumentSnapshot lastInvoice = queryDocumentSnapshots.getDocuments().get(0);
                         Number lastId = lastInvoice.getLong("invoiceId");
                         nextInvoiceId = lastId != null ? lastId.intValue() + 1 : 1;
-                    }
-                    saveInvoicesWithId(invoicesRef, nextInvoiceId);
-                    Intent intent = new Intent(this, Demo.class);
-                    intent.putExtra("nextInvoiceId", String.valueOf(nextInvoiceId));
+
+                    Intent intent = new Intent(this, CustomerInfo.class);
+                    intent.putExtra("nextInvoiceId",String.valueOf(nextInvoiceId));
+                    intent.putExtra("invoiceData", new HashMap<>(getInvoiceData(nextInvoiceId))); // Assuming you have a method to get invoice data
                     startActivity(intent);
+                    }
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error retrieving invoice ID: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
-    private void saveInvoicesWithId(CollectionReference invoicesRef, int invoiceId) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser == null) {
-            Toast.makeText(this, "User not authenticated.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
+    private Map<String, Object> getInvoiceData(int invoiceId) {
+        // Create and return a map containing the invoice data
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = today.format(formatter);
@@ -159,17 +153,9 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         invoiceData.put("tax", totalTax);
         invoiceData.put("grandTotal", grandTotal);
 
-        invoicesRef.document(String.valueOf(invoiceId))
-                .set(invoiceData)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Invoice saved successfully!", Toast.LENGTH_SHORT).show();
-                    invoicesList.clear();
-                    cardAdapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error saving invoice: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+        return invoiceData;
     }
+
 
     @Override
     public void onInvoiceAdded(String itemName, String itemQuantity, String itemAmount, String itemTax) {
@@ -196,13 +182,15 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
 class CardAdapter extends ArrayAdapter<AddInvoice> {
 
     private double totalAmt, totalTax, grandTotal;
-    private final TextView totalTextView, taxTextView, grandTotalTextView;
+    private final TextView totalTextView, taxTextView, grandTotalTextView,customerTextView;
 
     public CardAdapter(Context context, List<AddInvoice> invoices) {
         super(context, 0, invoices);
         totalTextView = ((AppCompatActivity) context).findViewById(R.id.tvTotalAmount);
         taxTextView = ((AppCompatActivity) context).findViewById(R.id.tvTax);
         grandTotalTextView = ((AppCompatActivity) context).findViewById(R.id.tvGrandTotal);
+        customerTextView = ((AppCompatActivity) context).findViewById(R.id.tvCustomerName);
+
     }
 
     @Override
@@ -278,7 +266,7 @@ class CardAdapter extends ArrayAdapter<AddInvoice> {
     }
 }
 
- class AddInvoice {
+class AddInvoice {
     private String itemName;
     private String itemQuantity;
     private String itemAmount;
@@ -301,4 +289,3 @@ class CardAdapter extends ArrayAdapter<AddInvoice> {
     public String getItemAmount() { return itemAmount; }
     public String getItemTax() { return itemTax; }
 }
-

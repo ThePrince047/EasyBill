@@ -35,7 +35,7 @@ public class Demo extends AppCompatActivity {
 
     private LinearLayout itemContainer;
     private TextView subTotalValue, taxValue, totalValue, date;
-    private TextView companyName, companyAddress, companyPhoneEmail,invoiceIdNo;
+    private TextView companyName, companyAddress, companyPhoneEmail,invoiceIdNo,customerName;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private FirebaseStorage storage;
@@ -67,6 +67,7 @@ public class Demo extends AppCompatActivity {
         companyName = findViewById(R.id.companyName);
         companyAddress = findViewById(R.id.companyAddress);
         companyPhoneEmail = findViewById(R.id.companyPhoneEmail);
+        customerName = findViewById(R.id.customerName);
 
         // Get today's date
         Calendar calendar = Calendar.getInstance();
@@ -106,6 +107,7 @@ public class Demo extends AppCompatActivity {
                             Double grandTotal = document.getDouble("grandTotal");
                             Double subtotal = document.getDouble("subtotal");
                             Double tax = document.getDouble("tax");
+                            String custName = document.getString("customerName");
 
                             // Ensure that these fields are not null
                             String displayDate = (date != null) ? date1 : "No date provided";
@@ -114,6 +116,7 @@ public class Demo extends AppCompatActivity {
                             double taxValue1 = (tax != null) ? tax : 0.0;
 
                             // Set the basic fields
+                            customerName.setText("Customer Name : "+ custName);
                             date.setText("Date: " + displayDate);
                             subTotalValue.setText(String.format("₹ %.2f", subtotalValue));
                             taxValue.setText(String.format("₹ %.2f", taxValue1));
@@ -220,10 +223,13 @@ public class Demo extends AppCompatActivity {
                             String phoneNumber = document.getString("phoneNumber");
                             String email = document.getString("email");
 
+
+
                             // Set data to the TextViews
                             companyName.setText(name);
                             companyAddress.setText(address1 + ",\n" + address2 + ",\n" + city + ", " + state + ", " + postalCode);
                             companyPhoneEmail.setText("Phone: " + phoneNumber + "\nEmail: " + email );
+
 
                             // Capture and upload snapshot after setting company info
                             captureAndUploadSnapshot();

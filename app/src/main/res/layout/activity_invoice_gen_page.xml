@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
 
-        android:text="Step 2 of 3"
+        android:text="Step 2 of 2"
         android:textColor="#808080"
         android:textSize="12dp" />
 

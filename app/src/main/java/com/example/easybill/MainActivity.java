@@ -186,9 +186,15 @@ public class MainActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             Double invoiceId = document.getDouble("invoiceId");
                             Double grandTotal = document.getDouble("grandTotal");
+                            String custName = document.getString("customerName");
 
                             if (invoiceId != null && grandTotal != null) {
-                                Invoice invoice = new Invoice(invoiceId, grandTotal);
+
+                                if(custName==null){
+                                    custName = "Customer Name not found";
+                                }
+
+                                Invoice invoice = new Invoice(invoiceId, grandTotal,custName);
                                 invoiceList.add(invoice);
                             } else {
                                 Log.e("MainActivity", "Missing fields in document: " + document.getId());
@@ -261,13 +267,13 @@ class InvoiceAdapter extends ArrayAdapter<Invoice> {
         Invoice invoice = getItem(position);
 
         TextView tvInvoiceNumber = convertView.findViewById(R.id.tvInvoiceNumber);
-        TextView tvAddedQuantity = convertView.findViewById(R.id.tvAddedQuantity);
+        TextView tvCustomerName = convertView.findViewById(R.id.tvCustomerName);
         TextView tvGrandTotal = convertView.findViewById(R.id.tvGrandTotal);
-        TextView tvStatusPaid = convertView.findViewById(R.id.tvStatusPaid);
 
         if (invoice != null) {
             tvInvoiceNumber.setText("INV#" + String.format("%.0f", invoice.getInvoiceId()));
             tvGrandTotal.setText("₹" + invoice.getGrandTotal());
+            tvCustomerName.setText(invoice.getCustomerName());
         }
 
         return convertView;
@@ -277,14 +283,20 @@ class InvoiceAdapter extends ArrayAdapter<Invoice> {
 class Invoice {
     private double invoiceId;
     private double grandTotal;
+    private String custName;
 
-    public Invoice(double invoiceId, double grandTotal) {
+    public Invoice(double invoiceId, double grandTotal,String customerName) {
         this.invoiceId = invoiceId;
         this.grandTotal = grandTotal;
+        this.custName = customerName;
     }
 
     public double getInvoiceId() {
         return invoiceId;
+    }
+
+    public String getCustomerName() {
+        return custName;
     }
 
     public double getGrandTotal() {

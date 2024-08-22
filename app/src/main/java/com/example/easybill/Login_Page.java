@@ -6,21 +6,18 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,6 +27,7 @@ public class Login_Page extends AppCompatActivity implements Forgot_Password.For
     private EditText passwordEditText;
     private Button loginButton;
     private TextView lblRegister,lblForgotPass;
+    ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -55,17 +53,12 @@ public class Login_Page extends AppCompatActivity implements Forgot_Password.For
         loginButton = findViewById(R.id.btnLogin);
         lblRegister = findViewById(R.id.lblRegister);
         lblForgotPass = findViewById(R.id.lblForgotPassword);
+        progressBar = findViewById(R.id.progressBar);
         lblRegister.setOnClickListener(v -> toRegisterPage());
         // Set up the login button click listener
         loginButton.setOnClickListener(v -> loginUser());
         lblForgotPass.setOnClickListener(v -> forgotPass());
 
-        // Adjust padding for system bars
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 
     private void forgotPass() {
@@ -93,16 +86,17 @@ public class Login_Page extends AppCompatActivity implements Forgot_Password.For
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);  // Disable the login button
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Login successful, update UI
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userId = user.getUid();
 
-                            // Check if companyName is empty
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             db.collection("EasyBill").document(userId)
                                     .collection("company_info")
@@ -110,35 +104,37 @@ public class Login_Page extends AppCompatActivity implements Forgot_Password.For
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            progressBar.setVisibility(View.GONE);
+                                            loginButton.setEnabled(true);  // Re-enable the login button
+
                                             if (task.isSuccessful()) {
                                                 QuerySnapshot querySnapshot = task.getResult();
                                                 if (!querySnapshot.isEmpty()) {
-                                                    // Assuming company_info contains only one document
-                                                        // Company name is present, proceed to MainActivity
-                                                        Toast.makeText(Login_Page.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
+                                                    Toast.makeText(Login_Page.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
                                                 } else {
-                                                    // Handle the case where no company_info document exists
                                                     Toast.makeText(Login_Page.this, "Company info not found. Redirecting to Company Info page.", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(getApplicationContext(), CompanyInfo.class);
                                                     startActivity(intent);
                                                     finish();
                                                 }
                                             } else {
-                                                // Handle error
                                                 Toast.makeText(Login_Page.this, "Error checking company info: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
                         } else {
-                            // Login failed, display a message to the user
+                            progressBar.setVisibility(View.GONE);
+                            loginButton.setEnabled(true);  // Re-enable the login button
+
                             Toast.makeText(Login_Page.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
     }
+
 
     @Override
     public void onForgotPassword(String email) {

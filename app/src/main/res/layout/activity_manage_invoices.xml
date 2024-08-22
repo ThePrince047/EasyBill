@@ -1,0 +1,159 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageInvoices"
+    android:background="@color/Background"
+    >
+<RelativeLayout
+    android:id="@+id/layoutSearch"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/lblManageInvoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manage Invoices"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/helveticaneueblack"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:textSize="20dp"
+        android:textColor="@color/black" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        android:id="@+id/cardSearchInvoice"
+        android:layout_below="@id/lblManageInvoice"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="5dp"
+        android:elevation="4dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <EditText
+                android:id="@+id/edtSearchInvoice"
+                android:layout_width="match_parent"
+                android:inputType="number"
+                android:layout_height="match_parent"
+                android:hint="Enter Invoice ID"
+                android:textColorHint="#61000000"
+                android:fontFamily="@font/helveticaneueroman"
+                android:paddingStart="20dp"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:cardCornerRadius="0dp"
+                android:layout_alignParentEnd="true"
+                >
+
+                <RelativeLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/ThemeColor">
+
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/ThemeColor"
+                        app:tint="@color/white"
+                        android:id="@+id/btnSearchInvoice"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/baseline_search_24"/>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutSearch"
+
+        android:layout_centerInParent="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/disInvoice"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="7dp"
+                android:layout_marginBottom="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imgShowInvoice"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/disInvoice"
+                android:id="@+id/disQR"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="7dp">
+
+                <ImageView
+                    android:id="@+id/imgShowInvoiceQR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/ThemeColor"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>
+
+

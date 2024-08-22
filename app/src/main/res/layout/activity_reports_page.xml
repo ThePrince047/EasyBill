@@ -168,7 +168,7 @@
         app:cardCornerRadius="5dp"
         android:id="@+id/cardTodaysEarnings"
         app:cardBackgroundColor="@color/white"
-        android:layout_below="@id/cardThisMonthEarnings"
+        android:layout_below="@id/cardYesterdayEarnings"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp">
@@ -204,6 +204,50 @@
                 />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="5dp"
+            android:id="@+id/cardYesterdayEarnings"
+            app:cardBackgroundColor="@color/white"
+            android:layout_below="@id/cardThisMonthEarnings"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp">
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <TextView
+                    android:id="@+id/lblYesterdaysEarning"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/white"
+                    android:text="Yesterday's Earnings:"
+                    />
+                <TextView
+                    android:id="@+id/amtYesterdaysEarning"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/helveticaneueblack"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/white"
+                    android:text="₹ 0"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -223,18 +267,19 @@
 
         />
     </androidx.cardview.widget.CardView>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:elevation="10dp"
-        android:background="#E9E9E9"
-        app:itemActiveIndicatorStyle="@color/bottom_nav_colir"
-        app:itemIconTint="@color/bottom_nav_colir"
-        android:layout_alignParentBottom="true"
-        app:itemTextColor="@color/bottom_nav_colir"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/botton_nav_items"/>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9"
+            android:elevation="10dp"
+            app:itemActiveIndicatorStyle="@color/bottom_nav_colir"
+            app:itemIconTint="@color/bottom_nav_colir"
+            app:itemTextColor="@color/bottom_nav_colir"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/botton_nav_items" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabButton"
             android:layout_width="wrap_content"

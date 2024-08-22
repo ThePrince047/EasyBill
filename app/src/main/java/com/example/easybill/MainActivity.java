@@ -41,7 +41,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     ImageButton icnSetting, icnNotification;
-    TextView homeamt, Username, viewall;
+    TextView homeamt, Username, viewall,manageInvoices;
     ProgressBar progressBar;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
@@ -70,9 +70,12 @@ public class MainActivity extends AppCompatActivity {
         icnNotification = findViewById(R.id.icnNotification);
         icnSetting = findViewById(R.id.icnSetting);
         progressBar = findViewById(R.id.progressBar);
+        manageInvoices = findViewById(R.id.lblManageInvoices);
+
 
         icnNotification.setOnClickListener(v -> displayNotification());
         icnSetting.setOnClickListener(v -> displaySetting());
+
 
         invoiceAdapter = new InvoiceAdapter(this, invoiceList);
         listView.setAdapter(invoiceAdapter);
@@ -103,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
+        });
+
+        manageInvoices.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), ManageInvoices.class));
         });
 
         fab.setOnClickListener(view -> {
@@ -237,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         // Set total revenue to home screen amount
-                        homeamt.setText("₹" + totalRevenue);
+                        homeamt.setText("₹" + String.format("%.2f", totalRevenue));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -272,7 +279,7 @@ class InvoiceAdapter extends ArrayAdapter<Invoice> {
 
         if (invoice != null) {
             tvInvoiceNumber.setText("INV#" + String.format("%.0f", invoice.getInvoiceId()));
-            tvGrandTotal.setText("₹" + invoice.getGrandTotal());
+            tvGrandTotal.setText("₹" + String.format("%.2f", invoice.getGrandTotal()));
             tvCustomerName.setText(invoice.getCustomerName());
         }
 

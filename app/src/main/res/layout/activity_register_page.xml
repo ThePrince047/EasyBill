@@ -181,15 +181,15 @@
             android:text="Already have an account?"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/lblLogin"
             android:gravity="center"
+            android:layout_height="wrap_content"
             android:textSize="13dp"
             android:textStyle="bold"
             android:fontFamily="@font/helveticaneueroman"
             android:textColor="@color/ThemeColor"
             android:layout_toRightOf="@id/lblDonthaveacc"
-            android:text=" Login   "/>
+            android:text=" Login"/>
     </LinearLayout>
 </RelativeLayout>

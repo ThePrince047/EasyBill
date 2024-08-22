@@ -85,7 +85,7 @@
                 android:textColorHint="@color/black"
                 android:background="@drawable/border"
                 android:padding="15dp"
-                android:hint="Tax"
+                android:hint="Tax %"
                 android:inputType="numberDecimal"
                 android:layout_below="@id/lineItemAmount"
                 />

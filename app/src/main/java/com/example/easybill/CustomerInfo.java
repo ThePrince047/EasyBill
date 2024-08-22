@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerInfo extends AppCompatActivity {
@@ -23,12 +22,6 @@ public class CustomerInfo extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseUser currentUser;
 
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-        super.onBackPressed();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

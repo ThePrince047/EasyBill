@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -48,7 +47,6 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_gen_page);
         getWindow().setStatusBarColor(getResources().getColor(R.color.Background));
-
         initViews();
         setupListeners();
     }
@@ -92,27 +90,32 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
             return;
         }
 
-        String userId = currentUser.getUid();
-        CollectionReference invoicesRef = firestore.collection("EasyBill").document(userId).collection("invoices");
+        CollectionReference invoicesRef = firestore.collection("EasyBill")
+                .document(currentUser.getUid())
+                .collection("invoices");
 
         invoicesRef.orderBy("invoiceId", Query.Direction.DESCENDING).limit(1).get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    int nextInvoiceId = 1;
+                    int nextInvoiceId = 1; // Default ID if no invoices exist
+
                     if (!queryDocumentSnapshots.isEmpty()) {
                         DocumentSnapshot lastInvoice = queryDocumentSnapshots.getDocuments().get(0);
                         Number lastId = lastInvoice.getLong("invoiceId");
-                        nextInvoiceId = lastId != null ? lastId.intValue() + 1 : 1;
+                        nextInvoiceId = (lastId != null) ? lastId.intValue() + 1 : 1;
+                    }
 
+                    // Proceed to save the invoice data
                     Intent intent = new Intent(this, CustomerInfo.class);
-                    intent.putExtra("nextInvoiceId",String.valueOf(nextInvoiceId));
+                    intent.putExtra("nextInvoiceId", String.valueOf(nextInvoiceId));
                     intent.putExtra("invoiceData", new HashMap<>(getInvoiceData(nextInvoiceId))); // Assuming you have a method to get invoice data
                     startActivity(intent);
-                    }
+
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error retrieving invoice ID: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
 
     private Map<String, Object> getInvoiceData(int invoiceId) {
         // Create and return a map containing the invoice data

@@ -13,7 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,8 +25,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,7 +38,7 @@ public class Demo extends AppCompatActivity {
 
     private LinearLayout itemContainer;
     private TextView subTotalValue, taxValue, totalValue, date;
-    private TextView companyName, companyAddress, companyPhoneEmail,invoiceIdNo,customerName;
+    private TextView companyName, companyAddress, companyPhoneEmail,invoiceIdNo,customerName,customerAdd,customerPhoneEmail;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private FirebaseStorage storage;
@@ -68,7 +71,8 @@ public class Demo extends AppCompatActivity {
         companyAddress = findViewById(R.id.companyAddress);
         companyPhoneEmail = findViewById(R.id.companyPhoneEmail);
         customerName = findViewById(R.id.customerName);
-
+        customerAdd = findViewById(R.id.customerAddress);
+        customerPhoneEmail = findViewById(R.id.customerPhoneEmail);
         // Get today's date
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -108,6 +112,15 @@ public class Demo extends AppCompatActivity {
                             Double subtotal = document.getDouble("subtotal");
                             Double tax = document.getDouble("tax");
                             String custName = document.getString("customerName");
+                            String add1 = document.getString("address1");
+                            String add2 = document.getString("address2");
+                            String city = document.getString("city");
+                            String state = document.getString("state");
+                            String postalCode = document.getString("postalCode");
+                            String phoneNumber = document.getString("phoneNumber");
+                            String email = document.getString("email");
+
+
 
                             // Ensure that these fields are not null
                             String displayDate = (date != null) ? date1 : "No date provided";
@@ -115,12 +128,40 @@ public class Demo extends AppCompatActivity {
                             double subtotalValue = (subtotal != null) ? subtotal : 0.0;
                             double taxValue1 = (tax != null) ? tax : 0.0;
 
+                            if (add1 != null && !add1.isEmpty()) {
+                                customerAdd.setText(add1);
+                            }
+                            if (add2 != null && !add2.isEmpty()) {
+                                customerAdd.append("\n" + add2);
+                            }
+                            if (city != null && !city.isEmpty()) {
+                                customerAdd.append("\n" + city);
+                            }
+                            if (state != null && !state.isEmpty()) {
+                                customerAdd.append("," + state);
+                            }
+                            if (postalCode != null && !postalCode.isEmpty()) {
+                                customerAdd.append("," + postalCode);
+                            }
+
+                            if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                                customerPhoneEmail.setText("Phone no: " + phoneNumber);
+                            }
+                            if (email != null && !email.isEmpty()) {
+                                if (!phoneNumber.isEmpty()) {
+                                    customerPhoneEmail.append("\n");
+                                }
+                                customerPhoneEmail.append("Email: " + email);
+                            }
+
                             // Set the basic fields
+
                             customerName.setText("Customer Name : "+ custName);
                             date.setText("Date: " + displayDate);
                             subTotalValue.setText(String.format("₹ %.2f", subtotalValue));
                             taxValue.setText(String.format("₹ %.2f", taxValue1));
                             totalValue.setText(String.format("₹ %.2f", grandTotalValue));
+
 
                             // Process items
                             for (int i = 0; i < 100; i++) {  // Assuming a maximum of 100 items
@@ -250,28 +291,51 @@ public class Demo extends AppCompatActivity {
 
         // Upload to Firebase Storage
         String fileName = invoiceId + ".png";
-        uploadToFirebaseStorage(data, fileName);
+        String fileNameWithoutEx = invoiceId;
+        String fileQR = invoiceId + "QR.png";
+        uploadToFirebaseStorage(data, fileName,fileNameWithoutEx,fileQR);
     }
 
-    private void uploadToFirebaseStorage(byte[] data, String fileName) {
+    private void uploadToFirebaseStorage(byte[] data, String fileName, String fileNameWithoutEx, String fileQR) {
         StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child(fileName);
+        StorageReference imageRef = storageRef.child(fileNameWithoutEx).child(fileName);
 
         UploadTask uploadTask = imageRef.putBytes(data);
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 String downloadUrl = uri.toString();
-                // Generate QR code from the download URL and set to ImageView
+                // Generate QR code from the download URL
                 Bitmap qrCodeBitmap = generateQRCode(downloadUrl);
+
+                // Upload QR code bitmap as a separate file
+                uploadQRCodeBitmap(qrCodeBitmap, fileNameWithoutEx, fileQR);
+
+                // Set the QR code image to ImageView after uploading
                 ImageView qrCodeImageView = findViewById(R.id.imgQr);
                 progressBar.setVisibility(View.GONE);
                 qrCodeImageView.setImageBitmap(qrCodeBitmap);
 
-
-                // Optionally, display the URL in a Toast
             });
         }).addOnFailureListener(exception -> {
             Toast.makeText(Demo.this, "Upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void uploadQRCodeBitmap(Bitmap qrCodeBitmap, String fileNameWithoutEx, String fileQR) {
+        byte[] qrCodeData = bitmapToByteArray(qrCodeBitmap);
+        StorageReference storageRef = storage.getReference();
+        StorageReference qrImageRef = storageRef.child(fileNameWithoutEx).child(fileQR);
+
+        UploadTask qrUploadTask = qrImageRef.putBytes(qrCodeData);
+        qrUploadTask.addOnSuccessListener(taskSnapshot -> {
+            qrImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String qrDownloadUrl = uri.toString();
+                // Optionally, you can handle the QR code URL (e.g., store in Firestore or display)
+                Log.d("QR Code URL", qrDownloadUrl);
+//                Toast.makeText(Demo.this, "QR code uploaded successfully", Toast.LENGTH_SHORT).show();
+            });
+        }).addOnFailureListener(exception -> {
+            Toast.makeText(Demo.this, "QR code upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 

@@ -32,7 +32,7 @@ public class CompanyInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_info);
+        setContentView(R.layout.activity_company_info);
         Window window = this.getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.Background));
         // Initialize Firebase Firestore
@@ -67,7 +67,6 @@ public class CompanyInfo extends AppCompatActivity {
         String email = edtEmail.getText().toString().trim();
         String phoneNumber = edtNumber.getText().toString().trim();
         String address1 = edtAdd1.getText().toString().trim();
-        String address2 = edtAdd2.getText().toString().trim();
         String city = edtCity.getText().toString().trim();
         String state = edtState.getText().toString().trim();
         String postalCode = edtPin.getText().toString().trim();

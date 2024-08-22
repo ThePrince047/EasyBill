@@ -146,14 +146,29 @@
             android:paddingBottom="1dp"
             android:textColor="#000000"
             android:fontFamily="@font/helveticaneueroman"/>
+        <TextView
+            android:id="@+id/customerPhoneEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/customerAddress"
+            android:paddingBottom="1dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/helveticaneueroman"/>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:id="@+id/dvcustomerPhoneEmail"
+            android:layout_below="@id/customerPhoneEmail"
+            />
         <!-- Itemized List -->
         <LinearLayout
             android:id="@+id/itemContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/customerAddress"
+            android:layout_below="@id/dvcustomerPhoneEmail"
             android:paddingTop="1dp">
 
             <!-- Header Row -->

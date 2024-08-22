@@ -10,19 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,12 +48,14 @@ public class reports_page extends AppCompatActivity {
     TextView amtThisYearEarning;
     TextView amtThisMonthEarning;
     TextView amtTodaysEarning;
+    TextView amtYesterdaysEarnings;
 
     Map<String, MonthProfit> monthlyProfitMap = new HashMap<>();
     int allTimeEarnings = 0;
     int thisYearEarnings = 0;
     int thisMonthEarnings = 0;
     int todaysEarnings = 0;
+    int yesterdaysEarnings = 0;
 
     @Override
     public void onBackPressed() {
@@ -70,16 +67,9 @@ public class reports_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reports_page);
         Window window = this.getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.Background));
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fab = findViewById(R.id.fabButton);
@@ -89,26 +79,32 @@ public class reports_page extends AppCompatActivity {
         amtThisYearEarning = findViewById(R.id.amtThisYearEarning);
         amtThisMonthEarning = findViewById(R.id.amtThisMonthEarning);
         amtTodaysEarning = findViewById(R.id.amtTodaysEarning);
+        amtYesterdaysEarnings = findViewById(R.id.amtYesterdaysEarning);
 
         progressBar = findViewById(R.id.progressBar); // Initialize the ProgressBar
 
 
 
         bottomNavigationView.setSelectedItemId(R.id.nav_reports);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_reports) {
-                Toast.makeText(getApplicationContext(), "This Page is Running", Toast.LENGTH_SHORT).show();
-                return true;
-            } else if (itemId == R.id.nav_home) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                return true;
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_reports) {
+                    Toast.makeText(getApplicationContext(), "This Page is Running", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (itemId == R.id.nav_home) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
+
+
 
         fab.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), invoice_gen_page.class));
@@ -156,6 +152,11 @@ public class reports_page extends AppCompatActivity {
                         todaysEarnings += grandTotal;
                     }
 
+                    if (date != null && date.equals(LocalDate.now().minusDays(1).toString())) {
+                        yesterdaysEarnings += grandTotal;
+                    }
+
+
                     // Update Monthly Profit Map
                     if (monthlyProfitMap.containsKey(monthYearKey)) {
                         MonthProfit currentMonthProfit = monthlyProfitMap.get(monthYearKey);
@@ -185,6 +186,7 @@ public class reports_page extends AppCompatActivity {
         amtThisYearEarning.setText("₹ " + thisYearEarnings);
         amtThisMonthEarning.setText("₹ " + thisMonthEarnings);
         amtTodaysEarning.setText("₹ " + todaysEarnings);
+        amtYesterdaysEarnings.setText("₹ " + yesterdaysEarnings);
     }
 
     private void displayMonthlyProfits() {

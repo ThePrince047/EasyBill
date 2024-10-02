@@ -11,23 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="40dp"
-        >
+        android:layout_marginTop="40dp">
 
         <!-- Title Heading -->
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="About Us  "
-
             android:textColor="@color/black"
             android:id="@+id/lblYourCompanyInfo"
             android:fontFamily="@font/helveticaneueblack"
             android:textSize="28dp"
-
-            android:layout_marginBottom="40dp" />
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp" />
 
         <!-- CardView to wrap all content except heading -->
         <androidx.cardview.widget.CardView
@@ -49,12 +47,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Welcome to DigiBill, an innovative and easy-to-use invoice generation app developed as part of our Bachelor of Computer Applications (BCA) minor project. DigiBill is designed to simplify invoicing for small businesses and freelancers."
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textSize="16sp"
-
                     android:layout_marginTop="10dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:paddingBottom="16dp" />
+                    android:paddingBottom="16dp"
+                    android:justificationMode="inter_word"
+                    android:textAlignment="viewStart" />
 
                 <!-- Heading for Team -->
                 <TextView
@@ -62,6 +63,8 @@
                     android:layout_height="wrap_content"
                     android:text="Meet the Team"
                     android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueblack"
@@ -73,6 +76,8 @@
                     android:layout_height="wrap_content"
                     android:text="\u2022 Prince Solanki"
                     android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueblack"
@@ -84,8 +89,8 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:paddingLeft="24dp"
-                    android:paddingBottom="8dp" />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp" />
 
                 <!-- Team Member 2 -->
                 <TextView
@@ -93,6 +98,8 @@
                     android:layout_height="wrap_content"
                     android:text="\u2022 Jay Rangani"
                     android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueblack"
@@ -104,7 +111,8 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:paddingLeft="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:paddingBottom="8dp" />
 
                 <!-- Team Member 3 -->
@@ -113,6 +121,8 @@
                     android:layout_height="wrap_content"
                     android:text="\u2022 Vansh Rathod"
                     android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueblack"
@@ -124,7 +134,8 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:paddingLeft="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:paddingBottom="8dp" />
 
                 <!-- Team Member 4 -->
@@ -133,6 +144,8 @@
                     android:layout_height="wrap_content"
                     android:text="\u2022 Deval Rathod"
                     android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueblack"
@@ -144,7 +157,8 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/helveticaneueroman"
-                    android:paddingLeft="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:paddingBottom="16dp" />
 
                 <!-- Final note -->
@@ -154,7 +168,9 @@
                     android:text="Thank you for using DigiBill. We hope it serves as a valuable tool for your business and helps make your invoicing process smoother."
                     android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/helveticaneueroman" />
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

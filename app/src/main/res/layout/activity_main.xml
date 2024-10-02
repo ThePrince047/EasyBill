@@ -14,7 +14,6 @@
 
 
         <View
-            android:id="@+id/homeview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/ThemeColor" />
@@ -40,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/lblTodayRev"
                     android:layout_marginStart="20dp"
-                    android:fontFamily="@font/helveticaneueroman"
+                    android:fontFamily="@font/helveticaneueblack"
                     android:textColor="@color/black"
                     android:textSize="30dp"
                     android:textStyle="bold" />
@@ -145,16 +144,6 @@
                     android:background="@color/ThemeColor"
                     android:src="@drawable/baseline_settings_24" />
 
-                <ImageButton
-                    android:id="@+id/icnNotification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:layout_toStartOf="@id/icnSetting"
-                    android:background="@color/ThemeColor"
-                    android:src="@drawable/baseline_logout_24" />
-
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -187,7 +176,6 @@
             android:textSize="15dp" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardHomeList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/bottom_navigation"

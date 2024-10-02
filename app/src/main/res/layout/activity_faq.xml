@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FAQ"
+    android:background="@color/Background">
+
+
+            <!-- FAQ Heading -->
+            <TextView
+                android:id="@+id/faq_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frequently Asked Questions"
+                android:textSize="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_alignParentTop="true"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_marginBottom="16dp"
+                android:layout_centerHorizontal="true"/>
+
+            <!-- Question 1 -->
+            <TextView
+                android:id="@+id/question1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. What is DigiBill?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_below="@id/faq_heading"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/answer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DigiBill is an innovative and user-friendly invoice generation app designed for small businesses and freelancers. It simplifies the invoicing process, allowing users to create, manage, and send invoices with ease."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueroman"
+                android:layout_below="@id/question1"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Question 2 -->
+            <TextView
+                android:id="@+id/question2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. How do I create an invoice?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_below="@id/answer1"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/answer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To create an invoice, simply log in to the app, navigate to the 'Create Invoice' section, fill in the required details such as client information, services provided, and payment terms, and then save or send the invoice directly from the app."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueroman"
+                android:layout_below="@id/question2"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Question 3 -->
+            <TextView
+                android:id="@+id/question3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. Can I customize my invoices?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_below="@id/answer2"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/answer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes! DigiBill allows you to customize your invoices with your company logo, color scheme, and payment terms to reflect your brand identity."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueroman"
+                android:layout_below="@id/question3"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Question 4 -->
+            <TextView
+                android:id="@+id/question4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. Is my data secure?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_below="@id/answer3"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/answer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Absolutely! DigiBill takes data security seriously. All your information is stored securely using Firebase, and we implement encryption to protect your sensitive data."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueroman"
+                android:layout_below="@id/question4"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Question 5 -->
+            <TextView
+                android:id="@+id/question5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5. Can I access my invoices from multiple devices?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_below="@id/answer4"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/answer5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes, as long as you log in to your DigiBill account from any device, you can access all your invoices seamlessly."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueroman"
+                android:layout_below="@id/question5"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Question 6 -->
+            <TextView
+                android:id="@+id/question6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6. What happens if I forget my password?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueblack"
+                android:layout_below="@id/answer5"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/answer6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="If you forget your password, you can reset it by clicking on the 'Forgot Password?' link on the login page. Instructions will be sent to your registered email."
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helveticaneueroman"
+                android:layout_below="@id/question6"
+                android:layout_marginBottom="16dp"/>
+
+        </RelativeLayout>
+
+

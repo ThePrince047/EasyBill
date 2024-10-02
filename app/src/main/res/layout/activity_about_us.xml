@@ -1,0 +1,161 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutUS"
+    android:background="@color/Background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        >
+
+        <!-- Title Heading -->
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="About Us  "
+
+            android:textColor="@color/black"
+            android:id="@+id/lblYourCompanyInfo"
+            android:fontFamily="@font/helveticaneueblack"
+            android:textSize="28dp"
+
+            android:layout_marginBottom="40dp" />
+
+        <!-- CardView to wrap all content except heading -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="0dp"
+            android:padding="16dp"
+            android:backgroundTint="@color/white"
+            app:cardElevation="4dp"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Body Paragraph -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome to DigiBill, an innovative and easy-to-use invoice generation app developed as part of our Bachelor of Computer Applications (BCA) minor project. DigiBill is designed to simplify invoicing for small businesses and freelancers."
+                    android:textSize="16sp"
+
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:paddingBottom="16dp" />
+
+                <!-- Heading for Team -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meet the Team"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueblack"
+                    android:paddingBottom="8dp" />
+
+                <!-- Team Member 1 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u2022 Prince Solanki"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueblack"
+                    android:paddingBottom="2dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Team Leader &amp; Project Manager: Responsible for leading the team, overseeing the project’s direction, and ensuring smooth development progress."
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:paddingLeft="24dp"
+                    android:paddingBottom="8dp" />
+
+                <!-- Team Member 2 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u2022 Jay Rangani"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueblack"
+                    android:paddingBottom="2dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UI/Backend Developer: Worked on the app’s user interface design and backend functionality, ensuring a seamless user experience."
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:paddingLeft="24dp"
+                    android:paddingBottom="8dp" />
+
+                <!-- Team Member 3 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u2022 Vansh Rathod"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueblack"
+                    android:paddingBottom="2dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tester: Ensured the app's functionality by rigorously testing features and eliminating bugs to guarantee a stable user experience."
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:paddingLeft="24dp"
+                    android:paddingBottom="8dp" />
+
+                <!-- Team Member 4 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u2022 Deval Rathod"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueblack"
+                    android:paddingBottom="2dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Documentation Lead: Managed all project documentation, including user guides and technical documentation for future enhancements."
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueroman"
+                    android:paddingLeft="24dp"
+                    android:paddingBottom="16dp" />
+
+                <!-- Final note -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thank you for using DigiBill. We hope it serves as a valuable tool for your business and helps make your invoicing process smoother."
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/helveticaneueroman" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</RelativeLayout>

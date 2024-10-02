@@ -1,8 +1,26 @@
 <resources>
-    <string name="app_name">EasyBill</string>
+    <string name="app_name">DigiBIll</string>
     <string name="Reports">Reports</string>
-    <string name="Notification">Notification</string>
-    <string name="Activity">Activity</string>
-    <string name="Account">Account</string>
+    <string name="privacy_policy_text">Last Updated: [10/02/2024 Date]\n\n" 
+    "This Privacy Policy describes how your personal information is collected, used, and shared when you use the DigiBill mobile application.\n\n" 
+    "Information We Collect\n" 
+    "- Account Information: When you create an account, we collect personal information such as your name, email address, and password.\n" 
+    "- Payment Information: If you make payments through the app, we may collect payment information, such as credit card details.\n\n" 
+    "Usage Information\n" 
+    "- We may collect information about how you interact with the app, including your device information, IP address, and usage statistics.\n\n" 
+    "How We Use Your Information\n" 
+    "- To Provide Services: We use your information to create and manage your account, process payments, and provide customer support.\n" 
+    "- To Improve Our Services: We analyze usage data to enhance the functionality and user experience of DigiBill.\n" 
+    "- To Communicate With You: We may use your contact information to send you updates, notifications, and promotional materials related to DigiBill.\n\n" 
+    "Sharing Your Information\n" 
+    "- We do not sell or rent your personal information to third parties.\n\n" 
+    "Data Security\n" 
+    "- We take data security seriously and implement appropriate measures to protect your information from unauthorized access.\n\n" 
+    "Your Rights\n" 
+    "- You have certain rights regarding your personal information, including access, correction, and deletion.\n\n" 
+    "Changes to This Privacy Policy\n" 
+    "- We may update this Privacy Policy from time to time.\n\n" 
+    "Contact Us\n" 
+    "- If you have any questions or concerns about this Privacy Policy, please contact us at support@digibill.com.";</string>
 
 </resources>

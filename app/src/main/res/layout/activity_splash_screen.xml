@@ -10,7 +10,6 @@
     android:background="@color/white">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="#0079FE"

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.easybill"
+    namespace = "com.example.digibill"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.easybill"
+        applicationId = "com.example.digibill"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

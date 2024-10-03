@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,7 +47,8 @@ public class ManageInvoices extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_invoices);
-
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.Background));
         showInvoice = findViewById(R.id.imgShowInvoice);
         searchInvoice = findViewById(R.id.btnSearchInvoice);
         invoiceID = findViewById(R.id.edtSearchInvoice);

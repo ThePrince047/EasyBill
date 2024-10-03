@@ -50,7 +50,7 @@ public class invoice_gen_page extends AppCompatActivity implements Invoice_Dailo
         initViews();
         setupListeners();
         Window window = this.getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.Background));
+        window.setStatusBarColor(getResources().getColor(R.color.Background ));
     }
 
     private void initViews() {

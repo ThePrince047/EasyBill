@@ -105,8 +105,6 @@ public class Register_Page extends AppCompatActivity {
         private int invoiceId;
 
         // Default constructor required for Firestore serialization
-        public User() {
-        }
 
         // Constructor with parameters
         public User(String email, int invoiceId) {
@@ -123,13 +121,6 @@ public class Register_Page extends AppCompatActivity {
             this.email = email;
         }
 
-        public int getInvoiceId() {
-            return invoiceId;
-        }
-
-        public void setInvoiceId(int invoiceId) {
-            this.invoiceId = invoiceId;
-        }
     }
 
 }

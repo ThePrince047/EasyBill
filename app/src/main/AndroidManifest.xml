@@ -50,14 +50,14 @@
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Demo"
+            android:name=".Invoice_Page"
             android:exported="false"
             android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".invoice_gen_page"
             android:exported="false"
-            android:noHistory="true"
+            android:noHistory="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".reports_page"

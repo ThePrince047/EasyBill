@@ -96,16 +96,19 @@ public class ManageInvoices extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
-                Toast.makeText(ManageInvoices.this, "Please enter valid ID", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageInvoices.this, "Invoice not found", Toast.LENGTH_SHORT).show();
                 Log.e("ManageInvoices", "Please enter valid ID", exception);
                 progressBar.setVisibility(View.GONE);
+                Intent intent = new Intent(getApplicationContext(), ManageInvoices.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
     }
 
     private void deleteInvoice() {
         if (invoiceIdValue == null || invoiceIdValue.isEmpty()) {
-            invoiceID.setError("Invoice ID is required");
+            invoiceID.setError("Search invoice first");
             return;
         }
 
@@ -128,6 +131,9 @@ public class ManageInvoices extends AppCompatActivity {
                         .document(currentUser.getUid())
                         .collection("invoices")
                         .document(String.valueOf(invoiceIdValue)).delete().addOnSuccessListener(aVoid2 -> {
+                            Intent intent = new Intent(getApplicationContext(), ManageInvoices.class);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0);
                     Toast.makeText(ManageInvoices.this, "Invoice deleted successfully", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(exception -> {
                     Toast.makeText(ManageInvoices.this, "Failed to delete invoice record from Firestore", Toast.LENGTH_SHORT).show();
@@ -138,7 +144,7 @@ public class ManageInvoices extends AppCompatActivity {
                 Log.e("ManageInvoices", "Failed to delete QR code", exception);
             });
         }).addOnFailureListener(exception -> {
-            Toast.makeText(ManageInvoices.this, "Failed to delete invoice image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManageInvoices.this, "No invoice found", Toast.LENGTH_SHORT).show();
             Log.e("ManageInvoices", "Failed to delete invoice image", exception);
         });
     }
@@ -147,7 +153,7 @@ public class ManageInvoices extends AppCompatActivity {
 
     private void showQRDialog() {
         if (invoiceIdValue == null || invoiceIdValue.isEmpty()) {
-            invoiceID.setError("Invoice ID is required");
+            invoiceID.setError("Search invoice first");
             return;
         }
 
@@ -170,16 +176,17 @@ public class ManageInvoices extends AppCompatActivity {
                 Bitmap qrCodeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 // Display the QR code Bitmap in the ImageView
                 imgDialogQRCode.setImageBitmap(qrCodeBitmap);
+                dialog.show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
-                Toast.makeText(ManageInvoices.this, "Error loading QR code", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageInvoices.this, "No QR found", Toast.LENGTH_SHORT).show();
                 Log.e("ManageInvoices", "Error loading QR code", exception);
             }
         });
 
-        dialog.show();
+
     }
 }

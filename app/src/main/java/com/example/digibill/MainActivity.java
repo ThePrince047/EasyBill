@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.homeinvoicelist);
         homeamt = findViewById(R.id.homeamt);
         Username = findViewById(R.id.lblUser);
-        viewall = findViewById(R.id.viewAllButton);
+
 
         icnSetting = findViewById(R.id.icnSetting);
         progressBar = findViewById(R.id.progressBar);
@@ -114,10 +114,7 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(0, 0);
         });
 
-        viewall.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), reports_page.class));
-            overridePendingTransition(0, 0);
-        });
+
     }
 
     private void displaySetting() {

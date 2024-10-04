@@ -44,24 +44,9 @@ public class setting extends AppCompatActivity {
         aboutus.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AboutUS.class)));
         faq.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), FAQ.class)));
 
-        privacypolicy.setOnClickListener(v -> showPrivacyPolicyDialog());
+        privacypolicy.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), PrivacyPolicy.class)));
     }
 
-    private void showPrivacyPolicyDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(setting.this);  // Use `setting.this` as the context
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_privacy_policy, null);
-        builder.setView(dialogView)
-                .setTitle("Privacy Policy")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     private void logoutUser() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth

@@ -51,7 +51,7 @@ public class CustomerInfo extends AppCompatActivity {
                     saveinvoiceData();
                     Intent get = getIntent();
                     String nextInvoiceId = get.getStringExtra("nextInvoiceId");
-                    Intent intent = new Intent(getApplicationContext(),Demo.class);
+                    Intent intent = new Intent(getApplicationContext(), Invoice_Page.class);
                     intent.putExtra("nextInvoiceId",String.valueOf(nextInvoiceId));
                     startActivity(intent);
                 }
@@ -103,11 +103,11 @@ public class CustomerInfo extends AppCompatActivity {
         docRef.set(invoiceData)
                 .addOnSuccessListener(aVoid -> {
                     // Success
-                    Toast.makeText(getApplicationContext(),"Company info successfully saved!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Customer info successfully saved!",Toast.LENGTH_LONG).show();
                 })
                 .addOnFailureListener(e -> {
                     // Failure
-                    Toast.makeText(getApplicationContext(), "Error writing company info: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error writing customer info: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,7 +35,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Map;
 
-public class Demo extends AppCompatActivity {
+public class Invoice_Page extends AppCompatActivity {
 
     private LinearLayout itemContainer;
     private TextView subTotalValue, taxValue, totalValue, date;
@@ -48,10 +49,11 @@ public class Demo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_demo);
+        setContentView(R.layout.activity_invoice_page);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.Background));
         // Initialize Firestore and Firebase Storage
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -191,10 +193,10 @@ public class Demo extends AppCompatActivity {
                             // Fetch and set company info
                             fetchCompanyInfo();
                         } else {
-                            Toast.makeText(Demo.this, "No such invoice", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Invoice_Page.this, "No such invoice", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(Demo.this, "Error getting invoice data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Invoice_Page.this, "Error getting invoice data", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -317,7 +319,7 @@ public class Demo extends AppCompatActivity {
 
             });
         }).addOnFailureListener(exception -> {
-            Toast.makeText(Demo.this, "Upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Invoice_Page.this, "Upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -335,7 +337,7 @@ public class Demo extends AppCompatActivity {
 //                Toast.makeText(Demo.this, "QR code uploaded successfully", Toast.LENGTH_SHORT).show();
             });
         }).addOnFailureListener(exception -> {
-            Toast.makeText(Demo.this, "QR code upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Invoice_Page.this, "QR code upload failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
